@@ -1,0 +1,24 @@
+{
+  "name": "supermaker-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ernest326/supermaker-web.git"
+  },
+  "author": "Ernest W, Kieran W",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ernest326/supermaker-web/issues"
+  },
+  "homepage": "https://github.com/Ernest326/supermaker-web#readme",
+  "dependencies": {
+    "@onehop/client": "^1.3.13",
+    "@onehop/react": "^1.3.13"
+  }
+}
