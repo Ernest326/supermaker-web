@@ -5,7 +5,8 @@ const rawHTML = `
   <div class="Game">
     <canvas id="myCanvas"
             class="canvas-center nearest"        
-            style="border: 4px solid #d3d3d3; width: 900px; height: 500px;"
+            style="border: 2px solid #d3d3d3; width: 1280; height: 720; image-rendering: pixelated"
+
     >
         Your browser does not support the HTML canvas tag.
     </canvas>
