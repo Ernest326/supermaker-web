@@ -1,13 +1,11 @@
-import '../App.css'
-
 import React from 'react'
 import { useEffect, useRef } from 'react'
 
 const rawHTML = `
-  <div class="Game nearest">
+  <div class="Game">
     <canvas id="myCanvas"
-            class="canvas-center"        
-            style="border: 1px solid #d3d3d3; width: 900px; height: 500px;"
+            class="canvas-center nearest"        
+            style="border: 4px solid #d3d3d3; width: 900px; height: 500px;"
     >
         Your browser does not support the HTML canvas tag.
     </canvas>

@@ -1,3 +1,5 @@
+import context from "react-bootstrap/esm/AccordionContext";
+
 let screen = new Registry();
 
 let camera_x = 0;
@@ -25,6 +27,17 @@ screen.register(bg);
 sprite_0_img.loaded = new function() {
     let sprite = new Sprite(sprite_0_img, 0, 0, 10, 10);
     screen.register(sprite)
+}
+
+function init() {
+
+
+   // Context.instance.imageSmoothingEnabled = false;
+    //canvas = document.getElementById("myCanvas");
+    //canvas.width = document.body.clientWidth;
+    //canvas.height = document.body.clientHeight;
+
+    gameLoop();
 }
 
 function sprites_loaded() {
@@ -61,4 +74,4 @@ let gameLoop = () => {
 }
 
 //wait_for_sprites();
-gameLoop();
+init();

@@ -45,7 +45,3 @@
   color: #467fd0;
   text-decoration: underline;
 }
-
-.nearest {
-  image-rendering: -webkit-optimize-contrast;
-}

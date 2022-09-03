@@ -16,3 +16,7 @@
     margin-left: auto;
     display: block;   
 }
+
+.nearest {
+    image-rendering: -webkit-optimize-contrast;
+}
