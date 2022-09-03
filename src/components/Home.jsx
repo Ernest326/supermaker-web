@@ -1,29 +1,42 @@
-import "../App.css"
-import Button from "react-bootstrap/Button"
+import "../style.css";
+import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import GameMaker from "../res/GameMaker.png";
 
 function Home() {
   let navigate = useNavigate();
 
   function navLogin() {
-    navigate('Login');
+    navigate("/Login");
   }
 
-  return(
-    <div className='Login-box'>
-      <div className='Login-box-title'>
-        <h1>SuperMaker</h1>
+  function navGuest() {
+    navigate("/Game")
+  }
+
+  function navRegister() {
+    navigate("/Register")
+  }
+
+  return (
+    <div className="Login-box">
+      <div className="Login-box-title">
+        <img id="Logo-img" src={GameMaker}></img>
       </div>
-      <div className='Login-box-middle'>
-        <div className='Login-box-middle-left'>
-          <Button variant="primary" className="Login-btn" onClick={navLogin}>Login</Button>
+      <div className="Login-box-middle">
+        <div className="Login-box-middle-left">
+          <Button variant="primary" className="Login-btn" onClick={navLogin}>
+            Login
+          </Button>
         </div>
-        <div className='Login-box-middle-right'>
-          <Button variant="primary" className="Login-btn" >Register</Button>
+        <div className="Login-box-middle-right">
+          <Button variant="primary" className="Login-btn" onClick={navRegister}>
+            Register
+          </Button>
         </div>
       </div>
-      <div className='Login-box-lower'>
-        <Button variant="link">Play as Guest</Button>
+      <div className="Login-box-lower">
+        <Button variant="link" onClick={navGuest}>Play as Guest?</Button>
       </div>
     </div>
   );

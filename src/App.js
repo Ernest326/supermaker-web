@@ -1,8 +1,9 @@
-import './App.css';
+import './style.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Home from "./components/Home";
 import Game from "./components/Game";
 import Login from "./components/Login"
+import Register from "./components/Register"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/Game' element={<Game/>} />
           <Route path='/Login' element={<Login/>} />
+          <Route path='/Register' element={<Register/>} />
         </Routes>
       </Router>
     </div>

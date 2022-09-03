@@ -1,3 +1,7 @@
+body {
+  background-color: #efefef;
+}
+
 .App {
   text-align: center;
   background-color: #efefef;
@@ -6,14 +10,15 @@
 .Login-box {
   background-color: #ffffff;
   justify-content: center;
-  margin-top: 5%;
   margin-left: 30%;
   margin-right: 30%;
+  margin-top: 5%;
 }
 
 .Login-box-title {
   text-align: center;
   padding-bottom: 4vh;
+  padding-top: 4vh;
 }
 
 .Login-box-middle {
@@ -38,10 +43,23 @@
   width: 5vw;
 }
 
+#Login-form {
+  margin: 10%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
 #Guest {
   border: none;
   background-color: inherit;
   display: inline-block;
   color: #467fd0;
   text-decoration: underline;
+}
+
+#Logo-img {
+  border-style: dotted;
+  border-color: #d35f5f;
+  border-radius: 50%;
+  width: 15vw;
 }
