@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 import Title from "./Title.jsx";
 import Tile from "./Tile.jsx";
@@ -27,8 +27,54 @@ const rawHTML = `
 function Editor() {
   const divRef = useRef();
 
-  function click() {
-    console.log("c");
+  const [tiles, setTiles] = useState([
+    {
+      title: "Grass",
+      img: GrassImg,
+      selected: false,
+    },
+    {
+      title: "Dirt",
+      img: DirtImg,
+      selected: false,
+    },
+    {
+      title: "Sand",
+      img: SandImg,
+      selected: false,
+    },
+    {
+      title: "Stone",
+      img: StoneImg,
+      selected: false,
+    },
+    {
+      title: "Wood",
+      img: WoodImg,
+      selected: false,
+    },
+    {
+      title: "Null",
+      img: NullImg,
+      selected: false,
+    },
+  ]);
+
+  let selectedIndex;
+
+  function handleClick(index) {
+    let newArr = [...tiles];
+    newArr.forEach((element) => {
+      element.selected = false;
+    });
+    newArr[index] = {
+      title: newArr[index].title,
+      img: newArr[index].img,
+      selected: true,
+    };
+    selectedIndex = index;
+
+    setTiles(newArr);
   }
 
   useEffect(() => {
@@ -41,45 +87,49 @@ function Editor() {
       <Title />
       <div id="Build-tools-container">
         <div id="Build-tools-menu-left">
-          <h1>Tile List</h1>
-            <br></br>
-            <ul>
-              <li>
+          <h1>Tiles</h1>
+          <br></br>
+          {tiles.map((Tiles, index) => {
+            return (
+              <div
+                onClick={() => {
+                  handleClick(index);
+                }}
+                key={index}
+              >
                 <button>
-                  <Tile title={"Grass"} img={GrassImg} />
+                  <Tile
+                    key={index}
+                    title={Tiles.title}
+                    img={Tiles.img}
+                    selected={Tiles.selected}
+                  />
                 </button>
-              </li>
-              <li>
-                <button>
-                  <Tile title={"Dirt"} img={DirtImg} />
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Tile title={"Sand"} img={SandImg} />
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Tile title={"Stone"} img={StoneImg} />
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Tile title={"Wood"} img={WoodImg} />
-                </button>
-              </li>
-              <li>
-                <button>
-                  <Tile title={"Null"} img={NullImg} />
-                </button>
-              </li>
-            </ul>
+              </div>
+            );
+          })}
         </div>
         <div id="Build-tools-screen">
           <div ref={divRef} />
         </div>
-        <div id="Build-tools-menu-right"></div>
+        <div id="Build-tools-menu-right">
+          <h1>Selected</h1>
+          <br></br>
+          {tiles.map((Tiles, index) => {
+            if (Tiles.selected === true) {
+              return (
+                <button>
+                  <Tile
+                    key={index}
+                    title={Tiles.title}
+                    img={Tiles.img}
+                    selected={Tiles.selected}
+                  />
+                </button>
+              );
+            }
+          })}
+        </div>
       </div>
     </div>
   );

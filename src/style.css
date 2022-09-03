@@ -14,14 +14,6 @@ ul {
   display: block;
 }
 
-ul li {
-  margin-bottom: 2.5%;
-}
-
-ul li button {
-
-}
-
 .App {
   text-align: center;
   background-color: #efefef;
@@ -122,9 +114,8 @@ ul li button {
   border: solid;
   border-color: #d35f5f;
   border-radius: 12.5%;
-  margin-left: 20%;
-  margin-right: 20%;
   width: 8.5vw;
+  margin-bottom: 2.5%;
 }
 
 #Tile-title {
