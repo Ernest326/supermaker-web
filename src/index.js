@@ -8,7 +8,6 @@ hop.init({
 	projectId: "project_NTAzMTk3MDc5ODI0MjI0NjE" // replace with your project ID
 });
  
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <App />

@@ -15,9 +15,7 @@ const Canvas = {
     },
 
     getCtx : function() {
-        let c = this.getCanvas();
-        const ctx = c.getContext("2d");
-        return ctx;
+        return this.getCanvas().getContext("2d");
     },
 
     getWidth : function() {
@@ -749,19 +747,6 @@ class Timer extends Context {
     set timer(value) {
         this._timer = value;
     }
-}
-
-class Gradient {
-    constructor() {
-    }
-
-    get gradient() {
-        var grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
-        grd.addColorStop(0, "red");
-        grd.addColorStop(1, "white");
-        return grd;
-    }
-
 }
 
 class Colour {
