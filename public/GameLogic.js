@@ -1,11 +1,22 @@
-//import context from "react-bootstrap/esm/AccordionContext";
+export const screen = new Registry();
 
-let screen = new Registry();
+export let camera_x_raw = 0;
+export let camera_y_raw = 0;
 
-let camera_x = 0;
-let camera_y = 0;
+export let camera_x = 0;
+export let camera_y = 0;
 
-let x = 0;
+export let cloud_0_img = new Image();
+cloud_0_img.src = "sprites/cloud_0.png";
+
+export let delta_time = 0;
+export let timer_start = Date.now();
+export let timer = 0;
+
+export let last_timer = 0;
+export let current_timer = 0;
+
+export let tiles = [];
 
 let sprite_0_img = new Image();
 sprite_0_img.src = "sprites/0.png";
@@ -19,43 +30,26 @@ let sprite_4_img = new Image();
 sprite_4_img.src = "sprites/4.png";
 let sprite_5_img = new Image();
 sprite_5_img.src = "sprites/5.png";
-let cloud_0_img = new Image();
-cloud_0_img.src = "sprites/cloud_0.png";
 
-let bg = new BackgroundFill("#00CCFF");
+import Cloud from "./game/Cloud.js"
+import Player from "./game/Player.js"
+import Tile from "./game/Tile.js"
 
-screen.register(bg);
+let player = new Player(0, 0, 5, 5, 100);
 
-var clouds = [];
+let tileset = {
+    0: sprite_0_img,
+    1: sprite_1_img,
+    2: sprite_2_img,
+    3: sprite_3_img,
+    4: sprite_4_img,
+    5: sprite_5_img
+}
 
-class Cloud extends Sprite {
+let clouds = [];
 
-    constructor() {
-        //this.speed = Math.random() * 0.1 + 0.1;
-        super(0, 0, 45, 25);
-        super.speed = Math.random() * 0.1 + 0.1;
-        this.pos_x = Math.floor(Math.random() * -500 - 20);
-        this.pos_y = Math.floor(Math.random() * 50 + 10);
-
-        //this.sprite = new Sprite(cloud_0_img, this.pos_x, this.pos_y, 45, 25);
-        //screen.register(this.sprite);
-    }
-
-    /*
-    move() {
-
-        this.pos_x += this.speed;
-        this.sprite.x = this.pos_x;
-        this.sprite.y = this.pos_y;
-
-        if (this.pos_x > 350) {
-            this.speed = Math.random() * 0.1 + 0.1;
-            this.pos_x = -100
-            this.pos_y = Math.floor(Math.random() * 50 + 10);
-        }
-    }
-    */
-
+function Lerp(start, end, time) {
+    return (end-start)*time + start;
 }
 
 function init() {
@@ -80,36 +74,78 @@ function sprites_loaded_check() {
 
 }
 
-function sprites_loaded() {
-    //screen.register(sprite);
-    for (var i = 0; i < 5; i++) {
-        //clouds.push(new Cloud());
-        screen.register(new Cloud())
+function load_map(file_data) {
+
+    screen.registry = [];
+
+    let bg = new BackgroundFill(file_data.settings['background_color']);
+    screen.register(bg);
+
+    if (file_data.settings['clouds_enabled']) {
+        for (var i = 0; i < 5; i++) {
+            let cloud = new Cloud();
+            clouds.push(cloud);
+            screen.register(cloud);
+        }
     }
+
+    file_data.tiles.forEach(x => {
+        let tile = new Tile(x['x']*20, x['y']*20, tileset[x['id']]);
+        tiles.push(tile);
+        screen.register(tile);
+    });
+
+    player.raw_x = file_data.settings['spawn_x']*32;
+    player.raw_y = file_data.settings['spawn_y']*32;
+    camera_x_raw = file_data.settings['spawn_x']*32;
+    camera_y_raw = file_data.settings['spawn_y']*32;
+
+    screen.register(player);
+
+}
+
+function sprites_loaded() {
+
+    Mouse.init();
+    Keyboard.init();
+
+    fetch('levels/default.level')
+    .then(response => response.json())
+    .then(jsonResponse => load_map(jsonResponse));
 
     gameLoop();
 }
 
 let gameLoop = () => {
     
+    timer = Date.now() - timer_start;
+    current_timer = Date.now();
+
+    delta_time = current_timer - last_timer;
+
     //if (sprite.complete) {
     //    test_sprite.x = x
     //}
 
     //x+=0.1
 
-    /*
-    clouds.forEach(x => {
-        x.draw();
-        //console.log(x.pos_x)
-    });
-    */
+    camera_x_raw = Lerp(camera_x_raw, player.raw_x, 0.1);
+    camera_y_raw = Lerp(camera_y_raw, player.raw_y, 0.1);
+    camera_x = camera_x_raw - 145;
+    camera_y = -camera_y_raw - 70;
 
-    screen.forEach(element => {
-        if (typeof element === Cloud) {
-            element.moveLeft(5)
-        }
+    clouds.forEach(x => {
+        x.update_movement();
+        //console.log(x.x);
     });
+
+    tiles.forEach(x => {
+        x.update_position();
+    });
+
+    player.update_movement();
+
+    last_timer = current_timer;
 
     screen.updateFrame();
     requestAnimationFrame(gameLoop);

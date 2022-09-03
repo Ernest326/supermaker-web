@@ -13,7 +13,7 @@ const rawHTML = `
     >
         Your browser does not support the HTML canvas tag.
     </canvas>
-    <script type='text/javascript' src='GameLogic.js'></script>
+    <script type='module' src='GameLogic.js'></script>
   </div>
 `;
 
