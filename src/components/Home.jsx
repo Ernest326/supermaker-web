@@ -1,7 +1,7 @@
 import "../style.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import GameMaker from "../res/GameMaker.png";
+import GameMaker from "../res/SuperMaker.png";
 
 function Home() {
   let navigate = useNavigate();
@@ -11,11 +11,11 @@ function Home() {
   }
 
   function navGuest() {
-    navigate("/Game")
+    navigate("/Game");
   }
 
   function navRegister() {
-    navigate("/Register")
+    navigate("/Register");
   }
 
   return (
@@ -36,7 +36,9 @@ function Home() {
         </div>
       </div>
       <div className="Login-box-lower">
-        <Button variant="link" onClick={navGuest}>Play as Guest?</Button>
+        <Button variant="link" onClick={navGuest}>
+          Play as Guest?
+        </Button>
       </div>
     </div>
   );

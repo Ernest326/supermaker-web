@@ -1,5 +1,5 @@
-import React from 'react'
-import { useEffect, useRef } from 'react'
+import React from "react";
+import { useEffect, useRef } from "react";
 
 const rawHTML = `
   <div class="Game">
@@ -12,20 +12,18 @@ const rawHTML = `
     </canvas>
     <script type='text/javascript' src='GameLogic.js'></script>
   </div>
-`
+`;
 
 function Game() {
-      //file_name = this.props.file || "default.level"
-      const divRef = useRef();
+  //file_name = this.props.file || "default.level"
+  const divRef = useRef();
 
-      useEffect(() => {
-        const fragment = document.createRange().createContextualFragment(rawHTML);
-        divRef.current.append(fragment);
-      }, []);
+  useEffect(() => {
+    const fragment = document.createRange().createContextualFragment(rawHTML);
+    divRef.current.append(fragment);
+  }, []);
 
-      
-      return <div ref={divRef} />;
-    
+  return <div ref={divRef} />;
 }
-  
-  export default Game;
+
+export default Game;
