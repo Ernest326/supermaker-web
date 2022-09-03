@@ -20,12 +20,16 @@ const rawHTML = `
     >
         Your browser does not support the HTML canvas tag.
     </canvas>
-    <script type='text/javascript' src='EditorLogic.js'></script>
+    <script type='module' src='EditorLogic.js'></script>
   </div>
 `;
 
 function Editor() {
   const divRef = useRef();
+
+  function click() {
+    console.log("c");
+  }
 
   useEffect(() => {
     const fragment = document.createRange().createContextualFragment(rawHTML);
@@ -37,36 +41,45 @@ function Editor() {
       <Title />
       <div id="Build-tools-container">
         <div id="Build-tools-menu-left">
-          <div>
-            <h1>Tile List</h1>
+          <h1>Tile List</h1>
             <br></br>
             <ul>
               <li>
-                <Tile title={"Grass"} img={GrassImg} />
+                <button>
+                  <Tile title={"Grass"} img={GrassImg} />
+                </button>
               </li>
               <li>
-                <Tile title={"Dirt"} img={DirtImg} />
+                <button>
+                  <Tile title={"Dirt"} img={DirtImg} />
+                </button>
               </li>
               <li>
-                <Tile title={"Sand"} img={SandImg} />
+                <button>
+                  <Tile title={"Sand"} img={SandImg} />
+                </button>
               </li>
               <li>
-                <Tile title={"Stone"} img={StoneImg} />
+                <button>
+                  <Tile title={"Stone"} img={StoneImg} />
+                </button>
               </li>
               <li>
-                <Tile title={"Wood"} img={WoodImg} />
+                <button>
+                  <Tile title={"Wood"} img={WoodImg} />
+                </button>
               </li>
               <li>
-                <Tile title={"Null"} img={NullImg} />
+                <button>
+                  <Tile title={"Null"} img={NullImg} />
+                </button>
               </li>
             </ul>
-          </div>
         </div>
         <div id="Build-tools-screen">
           <div ref={divRef} />
         </div>
-        <div id="Build-tools-menu-right">
-        </div>
+        <div id="Build-tools-menu-right"></div>
       </div>
     </div>
   );
