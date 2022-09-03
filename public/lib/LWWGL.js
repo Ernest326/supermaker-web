@@ -1,12 +1,9 @@
 /*
     @TODO
-    Shape Outline or Fill functions
     Gradient constructor
-    Colors - started
     Error checking - types
 */
 /*
-
 /* some basic canvas functions that are used throughout the library */
 const Canvas = {
     getCanvas : function() {
@@ -15,7 +12,9 @@ const Canvas = {
     },
 
     getCtx : function() {
-        return this.getCanvas().getContext("2d");
+        let c = this.getCanvas();
+        const ctx = c.getContext("2d");
+        return ctx;
     },
 
     getWidth : function() {
@@ -282,11 +281,11 @@ class Camera {
     }
 
     get target() {
-        return this._camera;
+        return this._target;
     }
 
     set target(value) {
-        this._camera = value;
+        this._target = value;
     }
 }
 
@@ -332,8 +331,12 @@ class Context {
 
 /* all new items need x, y, width and height */
 class Item extends Context {
-    constructor() {
+    constructor(x, y, width, height) {
         super();
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
     update() {
@@ -373,13 +376,9 @@ class Item extends Context {
     }
 }
 
-class Background extends Context {
+class Background extends Item {
     constructor() {
-        super();
-        this.x = 0;
-        this.y = 0;
-        this.width = Canvas.getWidth();
-        this.height = Canvas.getHeight();
+        super(0, 0, Canvas.width, Canvas.height);
     }
 
     update() {}
@@ -387,7 +386,7 @@ class Background extends Context {
     draw() {}
 }
 
-class StaticBackground extends Background {
+class BackgroundImage extends Background {
     constructor(image) {
         super();
         this.image = image;
@@ -441,8 +440,9 @@ class BackgroundFill extends Background {
 }
 
 class SpriteItem extends Item {
-    constructor() {
-        super();
+    constructor(x, y, width, height) {
+        super(x, y, width, height);
+        this.speed = null;
     }
 
     moveLeft(speed) {
@@ -453,7 +453,7 @@ class SpriteItem extends Item {
                 this.x -= speed;
             }
         } else {
-            this.x -= this.xs;
+            this.x -= this.speed;
         }
     }
 
@@ -465,7 +465,7 @@ class SpriteItem extends Item {
                 this.x += speed;
             }
         } else {
-            this.x += this.xs;
+            this.x += this.speed;
         }
     }
 
@@ -477,7 +477,7 @@ class SpriteItem extends Item {
                 this.y -= speed;
             }
         } else {
-            this.y -= this.ys;
+            this.y -= this.speed;
         }
     }
 
@@ -489,7 +489,7 @@ class SpriteItem extends Item {
                 this.y += speed;
             }
         } else {
-            this.y += this.ys;
+            this.y += this.speed;
         }
     }
 
@@ -497,18 +497,20 @@ class SpriteItem extends Item {
         this.x = x;
         this.y = y;
     }
+
+    get speed() {
+        return this._speed;
+    }
+
+    set speed(value) {
+        this._speed = value;
+    }
 }
 
 class Circle extends SpriteItem {
-    constructor(x, y, radius, speed) {
-        super();
-        this.x = x;
-        this.y = y;
-        this.width = radius * 2;
-        this.height = radius * 2;
+    constructor(x, y, radius) {
+        super(x, y, radius * 2, radius * 2);
         this.radius = radius;
-        this.xs = speed;
-        this.ys = speed;
         this.fill = false;
         this.colour = null;
     }
@@ -549,14 +551,8 @@ class Circle extends SpriteItem {
 }
 
 class Rectangle extends SpriteItem {
-    constructor(x, y, width, height, speed) {
-        super();
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.xs = speed;
-        this.ys = speed;
+    constructor(x, y, width, height) {
+        super(x, y, width, height);
         this.fill = false;
         this.colour = null;
     }
@@ -597,12 +593,8 @@ class Rectangle extends SpriteItem {
 }
 
 class Square extends SpriteItem {
-    constructor(x, y, size, speed) {
-        super();
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.speed = speed;
+    constructor(x, y, size) {
+        super(x, y, size, size);
     }
 
     draw() {
@@ -613,15 +605,9 @@ class Square extends SpriteItem {
 }
 
 class Sprite extends SpriteItem {
-    constructor(image, x, y, width, height, speed) {
-        super();
+    constructor(image, x, y, width, height) {
+        super(x, y, width, height);
         this.image = image;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.xs = speed;
-        this.ys = speed;
         this.camera = null;
     }
 
@@ -662,39 +648,52 @@ class Line extends Item {
     }
 }
 
-class FillText extends Item {
-    constructor(x, y, string, font, size, colour) {
+class TextItem extends Item {
+    constructor(x, y, string, size) {
         super();
         this.x = x;
         this.y = y;
         this.string = string;
-        this.font = font;
         this.size = size;
-        this.colour = colour;
+        this.fill = true;
+        this.font = null;
+        this.colour = null;
     }
 
     draw() {
-        this.ctx.font =  this.size + "px " + this.font;
-        this.ctx.fillStyle = this.colour.hexCode;
-        this.ctx.fillText(this.string, this.x, this.y);
-    }
-}
-
-class StrokeText extends Item {
-    constructor(x, y, string, font, size, colour) {
-        super();
-        this.x = x;
-        this.y = y;
-        this.string = string;
-        this.font = font;
-        this.size = size;
-        this.colour = colour;
+        if (this.fill) {
+            this.ctx.font = this.font === null ? this.size + "px " + "Arial" : this.size + "px " + this.font;
+            this.ctx.fillStyle = this.colour === null ? Colours.black : this.colour;
+            this.ctx.fillText(this.string, this.x, this.y);
+        } else {
+            this.ctx.font = this.font === null ? this.size + "px " + "Arial" : this.size + "px " + this.font;
+            this.ctx.strokeStyle = this.colour === null ? Colours.black : this.colour;
+            this.ctx.strokeText(this.string, this.x, this.y);
+        }
     }
 
-    draw() {
-        this.ctx.font =  this.size + "px " + this.font;
-        this.ctx.fillStyle = this.colour.hexCode;
-        this.ctx.strokeText(this.string, this.x, this.y);
+    get fill() {
+        return this._fill;
+    }
+
+    set fill(value) {
+        this._fill = value;
+    }
+
+    get font() {
+        return this._font;
+    }
+
+    set font(value) {
+        this._font = value;
+    }
+
+    get colour() {
+        return this._colour;
+    }
+
+    set colour(value) {
+        this._colour = value;
     }
 }
 
@@ -762,7 +761,5 @@ class Colour {
         let hb = Math.max(0, Math.min(255, Math.round(this.blue))).toString(16);
         let hexCode = "#" + (hr.length < 2 ? "0" : "") + hr + (hg.length < 2 ? "0" : "") + hg + (hb.length < 2 ? "0" : "") + hb;
         return hexCode;
-
     }
 }
-
