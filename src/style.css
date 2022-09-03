@@ -2,6 +2,11 @@ body {
   background-color: #efefef;
 }
 
+button {
+  border: none;
+  background-color: inherit;
+}
+
 .App {
   text-align: center;
   background-color: #efefef;
@@ -60,5 +65,30 @@ body {
   border-style: dotted;
   border-color: #d35f5f;
   border-radius: 50%;
-  width: 15vw;
+  width: 18vw;
+}
+
+#Build-tools {
+  background-color: #ffffff;
+  display: block;
+}
+
+#Build-tools-title {
+  padding-top: 2.5vh;
+}
+
+#Build-tools-container {
+  display: flex;
+}
+
+#Build-tools-menu-left {
+  flex: 20%;
+}
+
+#Build-tools-menu-right {
+  flex: 20%
+}
+
+#Build-tools-screen {
+  flex: 60%
 }

@@ -95,7 +95,7 @@ let gameLoop = () => {
 
     clouds.forEach(x => {
         x.update();
-        console.log(x.pos_x)
+        //console.log(x.pos_x)
     });
 
     screen.updateFrame();
