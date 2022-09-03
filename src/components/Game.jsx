@@ -1,26 +1,17 @@
+import '../App.css'
+
 import React from 'react'
 import { useEffect, useRef } from 'react'
 
 const rawHTML = `
-  <div class="Game">
+  <div class="Game nearest">
     <canvas id="myCanvas"
             class="canvas-center"        
             style="border: 1px solid #d3d3d3; width: 900px; height: 500px;"
     >
         Your browser does not support the HTML canvas tag.
     </canvas>
-    <script>
-      let screen = new Registry();
-      let test = new TextItem(75, 100, "Hello World", 30);
-
-      screen.register(test);
-
-      let gameLoop = () => {
-        screen.updateFrame();
-        requestAnimationFrame(gameLoop);
-      }
-      gameLoop();
-  </script>
+    <script type='text/javascript' src='GameLogic.js'></script>
   </div>
 `
 

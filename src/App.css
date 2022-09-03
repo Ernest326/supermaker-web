@@ -46,4 +46,6 @@
   text-decoration: underline;
 }
 
-
+.nearest {
+  image-rendering: -webkit-optimize-contrast;
+}
