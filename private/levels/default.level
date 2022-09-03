@@ -1,0 +1,30 @@
+export const data = [
+	{
+		tile_id: 0,
+		x: 0,
+		y: 0,
+		x_scale: 0,
+		y_scale: 0
+	},
+	{
+		tile_id: 0,
+		x: 1,
+		y: 0,
+		x_scale: 0,
+		y_scale: 0
+	},
+	{
+		tile_id: 0,
+		x: 2,
+		y: 0,
+		x_scale: 0,
+		y_scale: 0
+	},
+	{
+		tile_id: 0,
+		x: 3,
+		y: 0,
+		x_scale: 0,
+		y_scale: 0
+	}
+]
