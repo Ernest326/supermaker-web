@@ -1,26 +1,32 @@
 import "../App.css"
+import Button from "react-bootstrap/Button"
+import { useNavigate } from "react-router-dom";
 
 function Home() {
-    return(
-        <div className="App">
-        <div className='Login-box'>
-          <div className='Login-box-title'>
-            <h1>SuperMaker</h1>
-          </div>
-          <div className='Login-box-middle'>
-            <div className='Login-box-middle-left'>
-              <button className='Login-btn'>Login</button>
-            </div>
-            <div className='Login-box-middle-right'>
-              <button className='Login-btn'>Register</button>
-            </div>
-          </div>
-          <div className='Login-box-lower'>
-            <button id='Guest'>Play as guest</button>
-          </div>
+  let navigate = useNavigate();
+
+  function navLogin() {
+    navigate('Login');
+  }
+
+  return(
+    <div className='Login-box'>
+      <div className='Login-box-title'>
+        <h1>SuperMaker</h1>
+      </div>
+      <div className='Login-box-middle'>
+        <div className='Login-box-middle-left'>
+          <Button variant="primary" className="Login-btn" onClick={navLogin}>Login</Button>
+        </div>
+        <div className='Login-box-middle-right'>
+          <Button variant="primary" className="Login-btn" >Register</Button>
         </div>
       </div>
-    );
+      <div className='Login-box-lower'>
+        <Button variant="link">Play as Guest</Button>
+      </div>
+    </div>
+  );
 }
 
 export default Home;
