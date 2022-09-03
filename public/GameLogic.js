@@ -1,4 +1,4 @@
-import context from "react-bootstrap/esm/AccordionContext";
+//import context from "react-bootstrap/esm/AccordionContext";
 
 let screen = new Registry();
 
@@ -9,55 +9,79 @@ let x = 0;
 
 let sprite_0_img = new Image();
 sprite_0_img.src = "sprites/0.png";
-let sprite_1_img = new Image().src = "sprites/1.png";
-sprite_1_imgsrc = "sprites/1.png";
-let sprite_2_img = new Image().src = "sprites/2.png";
+let sprite_1_img = new Image();
+sprite_1_img.src = "sprites/1.png";
+let sprite_2_img = new Image();
 sprite_2_img.src = "sprites/2.png";
-let sprite_3_img = new Image().src = "sprites/3.png";
+let sprite_3_img = new Image();
 sprite_3_img.src = "sprites/3.png";
-let sprite_4_img = new Image().src = "sprites/4.png"
-sprite_4_img.src = "sprites/4.png"
-let sprite_5_img = new Image().src = "sprites/5.png"
-sprite_5_img.src = "sprites/5.png"
+let sprite_4_img = new Image();
+sprite_4_img.src = "sprites/4.png";
+let sprite_5_img = new Image();
+sprite_5_img.src = "sprites/5.png";
+let cloud_0_img = new Image();
+cloud_0_img.src = "sprites/cloud_0.png";
 
-let bg = new BackgroundFill("#000000");
+let bg = new BackgroundFill("#00CCFF");
 
 screen.register(bg);
 
-sprite_0_img.loaded = new function() {
-    let sprite = new Sprite(sprite_0_img, 0, 0, 10, 10);
-    screen.register(sprite)
+var clouds = [];
+
+class Cloud {
+
+    constructor() {
+        this.speed = Math.random() * 0.1 + 0.1;
+        this.pos_x = Math.floor(Math.random() * -500 - 20);
+        this.pos_y = Math.floor(Math.random() * 50 + 10);
+
+        this.sprite = new Sprite(cloud_0_img, this.pos_x, this.pos_y, 45, 25);
+        screen.register(this.sprite);
+    }
+
+    update() {
+
+        this.pos_x += this.speed;
+        this.sprite.x = this.pos_x;
+        this.sprite.y = this.pos_y;
+
+        if (this.pos_x > 350) {
+            this.speed = Math.random() * 0.1 + 0.1;
+            this.pos_x = -100
+            this.pos_y = Math.floor(Math.random() * 50 + 10);
+        }
+    }
+
 }
 
 function init() {
 
+    const canvas = document.getElementById("myCanvas");
+    canvas.getContext("2d").imageSmoothingEnabled = false;
 
-   // Context.instance.imageSmoothingEnabled = false;
-    //canvas = document.getElementById("myCanvas");
-    //canvas.width = document.body.clientWidth;
-    //canvas.height = document.body.clientHeight;
-
-    gameLoop();
-}
-
-function sprites_loaded() {
-
-    return sprite_0_img.completed && sprite_1_img.completed && sprite_2_img.completed && sprite_3_img.completed && sprite_4_img.completed && sprite_5_img.completed;
-
+    wait_for_sprites();
 }
 
 function wait_for_sprites() {
-    console.log("Test")
-    if (sprites_loaded()) {
-        add_registers()
+    if (sprites_loaded_check()) {
+        sprites_loaded()
     } else {
         setTimeout(wait_for_sprites, 100);
     }
 }
 
+function sprites_loaded_check() {
 
-function add_registers() {
-    screen.register(sprite);
+    return sprite_0_img.complete && sprite_1_img.complete && sprite_2_img.complete && sprite_3_img.complete && sprite_4_img.complete && sprite_5_img.complete;
+
+}
+
+function sprites_loaded() {
+    //screen.register(sprite);
+    for (var i = 0; i < 5; i++) {
+        clouds.push(new Cloud());
+    }
+
     gameLoop();
 }
 
@@ -68,6 +92,11 @@ let gameLoop = () => {
     //}
 
     //x+=0.1
+
+    clouds.forEach(x => {
+        x.update();
+        console.log(x.pos_x)
+    });
 
     screen.updateFrame();
     requestAnimationFrame(gameLoop);
