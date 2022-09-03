@@ -28,18 +28,21 @@ screen.register(bg);
 
 var clouds = [];
 
-class Cloud {
+class Cloud extends Sprite {
 
     constructor() {
-        this.speed = Math.random() * 0.1 + 0.1;
+        //this.speed = Math.random() * 0.1 + 0.1;
+        super(0, 0, 45, 25);
+        super.speed = Math.random() * 0.1 + 0.1;
         this.pos_x = Math.floor(Math.random() * -500 - 20);
         this.pos_y = Math.floor(Math.random() * 50 + 10);
 
-        this.sprite = new Sprite(cloud_0_img, this.pos_x, this.pos_y, 45, 25);
-        screen.register(this.sprite);
+        //this.sprite = new Sprite(cloud_0_img, this.pos_x, this.pos_y, 45, 25);
+        //screen.register(this.sprite);
     }
 
-    update() {
+    /*
+    move() {
 
         this.pos_x += this.speed;
         this.sprite.x = this.pos_x;
@@ -51,6 +54,7 @@ class Cloud {
             this.pos_y = Math.floor(Math.random() * 50 + 10);
         }
     }
+    */
 
 }
 
@@ -79,7 +83,8 @@ function sprites_loaded_check() {
 function sprites_loaded() {
     //screen.register(sprite);
     for (var i = 0; i < 5; i++) {
-        clouds.push(new Cloud());
+        //clouds.push(new Cloud());
+        screen.register(new Cloud())
     }
 
     gameLoop();
@@ -93,9 +98,17 @@ let gameLoop = () => {
 
     //x+=0.1
 
+    /*
     clouds.forEach(x => {
-        x.update();
+        x.draw();
         //console.log(x.pos_x)
+    });
+    */
+
+    screen.forEach(element => {
+        if (typeof element === Cloud) {
+            element.moveLeft(5)
+        }
     });
 
     screen.updateFrame();
