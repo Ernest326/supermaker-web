@@ -1,8 +1,6 @@
 import React from "react";
 import { useEffect, useRef } from "react";
-import { Button } from "react-bootstrap";
-import Title from "../res/Title.png";
-import { Play } from "react-bootstrap-icons";
+import Title from "./Title";
 
 const rawHTML = `
   <div class="Game">
@@ -20,31 +18,15 @@ const rawHTML = `
 function Game() {
   const divRef = useRef();
 
-  function log() {
-    console.log("0")
-  }
-
   useEffect(() => {
     const fragment = document.createRange().createContextualFragment(rawHTML);
     divRef.current.append(fragment);
   }, []);
 
   return (
-    <div id="Build-tools">
-      <div id="Build-tools-title">
-        <img src={Title}></img>
-      </div>
-      <div id="Build-tools-container">
-        <div id="Build-tools-menu-left">
-          <button onClick={log}>
-            <Play color="#00ff00" size={40} />
-          </button>
-          </div>
-        <div id="Build-tools-screen" ref={divRef} />
-        <div id="Build-tools-menu-right">
-          <p>2</p>
-        </div>
-      </div>
+    <div>
+      <Title />
+      <div ref={divRef} />
     </div>
   );
 }

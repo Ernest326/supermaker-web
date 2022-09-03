@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Game from "./components/Game";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Editor from "./components/Editor";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Game" element={<Game />} />
+          <Route path="/Editor" element={<Editor />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
         </Routes>

@@ -21,7 +21,9 @@ function Home() {
   return (
     <div className="Login-box">
       <div className="Login-box-title">
-        <img id="Logo-img" src={GameMaker}></img>
+        <div id="Logo-frame">
+          <img id="Logo-img" src={GameMaker}></img>
+        </div>
       </div>
       <div className="Login-box-middle">
         <div className="Login-box-middle-left">

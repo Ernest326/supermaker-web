@@ -7,6 +7,16 @@ button {
   background-color: inherit;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 2.5%;
+}
+
 .App {
   text-align: center;
   background-color: #efefef;
@@ -62,10 +72,16 @@ button {
 }
 
 #Logo-img {
+  width: 15vw;
+  scale: 0.8;
+}
+
+#Logo-frame {
   border-style: dotted;
   border-color: #d35f5f;
   border-radius: 50%;
-  width: 18vw;
+  margin-left: 25%;
+  margin-right: 25%;
 }
 
 #Build-tools {
@@ -73,8 +89,12 @@ button {
   display: block;
 }
 
-#Build-tools-title {
+#SuperMaker-title {
   padding-top: 2.5vh;
+}
+
+#SuperMaker-main {
+  background-color: #ffffff;
 }
 
 #Build-tools-container {
@@ -82,13 +102,29 @@ button {
 }
 
 #Build-tools-menu-left {
-  flex: 20%;
+  flex: 15%;
 }
 
 #Build-tools-menu-right {
-  flex: 20%
+  flex: 15%
 }
 
 #Build-tools-screen {
-  flex: 60%
+  flex: 70%
+}
+
+#Tile {
+  border: solid;
+  border-color: #d35f5f;
+  border-radius: 12.5%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+#Tile-title {
+  font-size: 1.35rem;
+}
+
+#Tile-img {
+  padding-bottom: 1vh;
 }

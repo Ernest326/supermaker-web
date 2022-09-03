@@ -643,6 +643,7 @@ class Line extends Item {
         this.ctx.beginPath();
         this.ctx.moveTo(this.x1, this.y1);
         this.ctx.lineTo(this.x2, this.y2);
+        this.ctx.strokeStyle = "#d3d3d3";
         this.ctx.stroke();
         this.ctx.closePath();
     }
