@@ -18,6 +18,10 @@ export let current_timer = 0;
 
 export let tiles = [];
 
+export function Lerp(start, end, time) {
+    return (end-start)*time + start;
+}
+
 let sprite_0_img = new Image();
 sprite_0_img.src = "sprites/0.png";
 let sprite_1_img = new Image();
@@ -35,7 +39,7 @@ import Cloud from "./game/Cloud.js"
 import Player from "./game/Player.js"
 import Tile from "./game/Tile.js"
 
-let player = new Player(0, 0, 5, 5, 100);
+let player = new Player(0, 0, 0.8, 5, 100);
 
 let tileset = {
     0: sprite_0_img,
@@ -48,9 +52,22 @@ let tileset = {
 
 let clouds = [];
 
-function Lerp(start, end, time) {
-    return (end-start)*time + start;
-}
+const level_loader = document.getElementById('file');
+level_loader.addEventListener('change', (event) => {
+    
+    const files = event.target.files;
+
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event) => {
+        load_map(JSON.parse(event.target.result));
+    });
+
+    for (const file of files) {
+        reader.readAsText(file);
+    }
+
+})
 
 function init() {
 
@@ -97,6 +114,10 @@ function load_map(file_data) {
 
     player.raw_x = file_data.settings['spawn_x']*32;
     player.raw_y = file_data.settings['spawn_y']*32;
+    player.gravity = file_data.settings['gravity'];
+    player.jump_force = file_data.settings['jump_force'];
+    player.speed = file_data.settings['jump_force'];
+
     camera_x_raw = file_data.settings['spawn_x']*32;
     camera_y_raw = file_data.settings['spawn_y']*32;
 

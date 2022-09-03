@@ -4,9 +4,14 @@ import Title from "./Title";
 
 const rawHTML = `
   <div class="Game">
+    <label class="file">
+      <input type="file" id="file" aria-label="Load" accept=".level"
+      style="margin-top: 15px">
+      <span class="file-custom"></span>
+    </label>
     <canvas id="myCanvas"
             class="canvas-center nearest"        
-            style="border: 2px solid #d3d3d3; width: 1280; height: 720; image-rendering: pixelated"
+            style="border: 2px solid #d3d3d3; width: 1280; height: 720; image-rendering: pixelated; margin-top: 15px"
 
     >
         Your browser does not support the HTML canvas tag.
