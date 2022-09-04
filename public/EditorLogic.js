@@ -1,8 +1,7 @@
 export const screen = new Registry();
 
-export let camera_x_raw = 0;
-export let camera_y_raw = 0;
-
+export let camera_raw_x = 0;
+export let camera_raw_y = 0;
 export let camera_x = 0;
 export let camera_y = 0;
 
@@ -35,11 +34,8 @@ sprite_4_img.src = "sprites/4.png";
 let sprite_5_img = new Image();
 sprite_5_img.src = "sprites/5.png";
 
-import Cloud from "./game/Cloud.js"
-import Player from "./game/Player.js"
-import Tile from "./game/Tile.js"
-
-//let player = new Player(0, 0, 0.8, 5, 100);
+import EditorCloud from "./game/EditorCloud.js"
+import EditorTile from "./game/EditorTile.js"
 
 let tileset = {
     0: sprite_0_img,
@@ -102,33 +98,17 @@ function load_map(file_data) {
 
     if (file_data.settings['clouds_enabled']) {
         for (var i = 0; i < 5; i++) {
-            let cloud = new Cloud();
+            let cloud = new EditorCloud();
             clouds.push(cloud);
             screen.register(cloud);
         }
     }
 
     file_data.tiles.forEach(x => {
-        let tile = new Tile(x['x']*20, x['y']*20, tileset[x['id']]);
+        let tile = new EditorTile(x['x']*20, x['y']*20, tileset[x['id']]);
         tiles.push(tile);
         screen.register(tile);
     });
-
-    /*
-    player.raw_x = file_data.settings['spawn_x']*32;
-    player.raw_y = file_data.settings['spawn_y']*32;
-    player.checkpoint_x = file_data.settings['spawn_x']*32;
-    player.checkpoint_y = file_data.settings['spawn_y']*32;
-    
-    player.gravity = file_data.settings['gravity'];
-    player.jump_force = file_data.settings['jump_force'];
-    player.speed = file_data.settings['speed'];
-
-    camera_x_raw = file_data.settings['spawn_x']*32;
-    camera_y_raw = file_data.settings['spawn_y']*32;
-    */
-
-    //screen.register(player);
 
     addGrid();
 }
@@ -162,19 +142,36 @@ function sprites_loaded() {
 
 const blockSize = 20;
 
+let grid_h = [];
+let grid_v = [];
+
 function addGrid() {
     let posX = blockSize;
     let posY = blockSize;
-    for (let i = 0; i < Canvas.getWidth() / blockSize; i++) {
-        screen.register(new Line(posX + 0.5, 0, posX + 0.5, Canvas.getHeight()))
+    for (let i = 0; i < Canvas.getWidth()*2 / blockSize; i++) {
+        let x = new Line(posX+0.5, 0, posX + 0.5, Canvas.getHeight());
+        grid_v.push(x);
+        screen.register(x)
         posX += blockSize;
     }
 
-    for (let j = 0; j < Canvas.getHeight() / blockSize; j++) {
-        screen.register(new Line(0, posY + 0.5, Canvas.getWidth(), posY + 0.5));
+    for (let j = 0; j < Canvas.getHeight()*2 / blockSize; j++) {
+        let x = new Line(0, posY + 0.5, Canvas.getWidth(), posY + 0.5);
+        grid_h.push(x);
+        screen.register(x);
         posY += blockSize;
     }
 }
+
+function findTile(x, y) {
+    tiles.forEach(e => {
+        if(Math.floor(e.raw_x/32)) {
+            //
+        }
+    });
+}
+
+let mouse_held = false;
 
 let gameLoop = () => {
     
@@ -183,29 +180,49 @@ let gameLoop = () => {
 
     delta_time = current_timer - last_timer;
 
-    //if (sprite.complete) {
-    //    test_sprite.x = x
-    //}
+    camera_x = camera_raw_x - 145;
+    camera_y = -camera_raw_y - 70;
 
-    //x+=0.1
+    if(Keyboard.isKeydown(Key.a)) {
+        camera_raw_x -= 20*delta_time/1000;
+    }
+    if(Keyboard.isKeydown(Key.d)) {
+        camera_raw_x += 20*delta_time/1000;
+    }
+    if(Keyboard.isKeydown(Key.s)) {
+        camera_raw_y -= 20*delta_time/1000;
+    }
+    if(Keyboard.isKeydown(Key.w)) {
+        camera_raw_y += 20*delta_time/1000;
+    }
 
-    /*
-    camera_x_raw = Lerp(camera_x_raw, player.raw_x, 0.1);
-    camera_y_raw = Lerp(camera_y_raw, player.raw_y, 0.1);
-    camera_x = camera_x_raw - 145;
-    camera_y = -camera_y_raw - 70;
-    */
+    grid_v.forEach(element => {
+        element.x1 = element.x_raw_1 - camera_raw_x - 5;
+        element.x2 = element.x_raw_2 - camera_raw_x- 5;
+    });
+
+    grid_h.forEach(element => {
+        element.y1 = element.y_raw_1 + camera_raw_y;
+        element.y2 = element.y_raw_2 + camera_raw_y;
+    });
+
+    if(Mouse.isButtonDown(MouseButton.left)) {
+        if (!mouse_held) {
+            mouse_held = true;
+        }
+    } else {
+        mouse_held = false;
+    }
+
+    console.log(Math.floor((mouseX-145) / 40))
 
     clouds.forEach(x => {
         x.update_movement();
-        //console.log(x.x);
     });
 
     tiles.forEach(x => {
         x.update_position();
     });
-
-    //player.update_movement();
 
     last_timer = current_timer;
 

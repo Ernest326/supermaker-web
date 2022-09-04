@@ -637,6 +637,10 @@ class Line extends Item {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.x_raw_1 = this.x1;
+        this.x_raw_2 = this.x1;
+        this.y_raw_1 = this.y1;
+        this.y_raw_2 = this.y2;
     }
 
     draw() {
