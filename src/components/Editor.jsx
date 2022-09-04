@@ -1,9 +1,8 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "react-bootstrap";
-import InputGroup from "react-bootstrap/InputGroup";
 import Title from "./Title.jsx";
 import Tile from "./Tile.jsx";
+import Setting from "./Setting.jsx";
 import { Play } from "react-bootstrap-icons";
 
 const rawHTML = `
@@ -19,8 +18,52 @@ const rawHTML = `
   </div>
 `;
 
+const inputHTML = `  
+  <label class="file">
+    <input type="file" id="file" aria-label="Load" accept=".level"
+      style="margin-top: 15px">
+  </label>
+`;
+
+const saveHTML = `  
+  <label class="save">
+    <a href="levels/level.level" download>Save</a>
+  </label>
+`;
+
 function Editor() {
   const divRef = useRef();
+
+  const [settings, setSettings] = useState([
+    {
+      title: "Spawn X",
+      placeholder: "int",
+    },
+    {
+      title: "Spawn Y",
+      placeholder: "int",
+    },
+    {
+      title: "Backdrop Fill",
+      placeholder: "string(hexcode)",
+    },
+    {
+      title: "Clouds",
+      placeholder: "boolean",
+    },
+    {
+      title: "Gravity",
+      placeholder: "int",
+    },
+    {
+      title: "Jump Force",
+      placeholder: "float",
+    },
+    {
+      title: "Speed",
+      placeholder: "float",
+    },
+  ]);
 
   const [tiles, setTiles] = useState([
     {
@@ -82,6 +125,14 @@ function Editor() {
       <Title />
       <div id="Build-tools-container">
         <div id="Build-tools-menu-left">
+          <h1>Level</h1>
+          <div id="Build-tools-file-container">
+            <div dangerouslySetInnerHTML={{ __html: inputHTML }}></div>
+            <div
+              id="Build-tools-save"
+              dangerouslySetInnerHTML={{ __html: saveHTML }}
+            ></div>
+          </div>
           <h1>Objects</h1>
           <br></br>
           {tiles.map((Tiles, index) => {
@@ -129,6 +180,20 @@ function Editor() {
           <div id="Settings">
             <h1 id="Settings-title">Settings</h1>
             <br></br>
+            {settings.map((Settings, index) => {
+              return (
+                <Setting
+                  key={index}
+                  id={"Setting" + index}
+                  name={Settings.title}
+                  placeholder={Settings.placeholder}
+                />
+              );
+            })}
+          </div>
+          <div id="Tiles">
+                <h1>Tiles</h1>
+                <br></br>
           </div>
         </div>
       </div>

@@ -65,10 +65,10 @@ function Game() {
             <br></br>
             <div id="Control">
               <div id="Control-left">
-                <label>Move-forward</label>
+                <label>Move-forward:</label>
               </div>
               <div id="Control-right">
-
+                <label>W</label>
               </div>
             </div>
           </div>
