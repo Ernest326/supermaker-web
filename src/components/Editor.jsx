@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Title from "./Title.jsx";
 import Tile from "./Tile.jsx";
 import Setting from "./Setting.jsx";
@@ -27,12 +28,13 @@ const inputHTML = `
 
 const saveHTML = `  
   <label class="save">
-    <a href="levels/level.level" download>Save</a>
+    <input type="button" id="save">
   </label>
 `;
 
 function Editor() {
   const divRef = useRef();
+  const navigate = useNavigate();
 
   const [settings, setSettings] = useState([
     {
@@ -100,6 +102,11 @@ function Editor() {
 
   let selectedIndex = -1;
 
+  function reloadPage() {
+    navigate("/");
+    window.location.reload();
+  }
+
   function handleClick(index) {
     let newArr = [...tiles];
     newArr.forEach((element) => {
@@ -132,6 +139,9 @@ function Editor() {
               id="Build-tools-save"
               dangerouslySetInnerHTML={{ __html: saveHTML }}
             ></div>
+            <div>
+              <button onClick={reloadPage}>Reload Page</button>
+            </div>
           </div>
           <h1>Objects</h1>
           <br></br>
@@ -192,8 +202,8 @@ function Editor() {
             })}
           </div>
           <div id="Tiles">
-                <h1>Tiles</h1>
-                <br></br>
+            <h1>Tiles</h1>
+            <br></br>
           </div>
         </div>
       </div>
