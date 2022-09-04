@@ -133,7 +133,7 @@ function sprites_loaded() {
     Mouse.init();
     Keyboard.init();
 
-    fetch('levels/default.level')
+    fetch('levels/aabb_test.level')
     .then(response => response.json())
     .then(jsonResponse => load_map(jsonResponse));
 

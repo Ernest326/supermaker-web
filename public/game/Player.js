@@ -18,11 +18,13 @@ export default class Player extends Sprite {
         this.y_velocity = 0;
         this.x_acceleration = 0;
         this.x_velocity = 0;
+        this.x_velocity_raw = 0;
         this.x_movement = 0;
         this.x_current_movement = 0;
         this.gravity = -0.006;
         this.floored = false;
         this.jumping = false;
+        this.last_position = [0,0];
     }
 
     damage(x) {
@@ -41,8 +43,9 @@ export default class Player extends Sprite {
 
     update_movement() {
 
-        this.update_position();
         this.update_physics();
+        this.update_position();
+        console.log(this.get_velocity());
     }
 
     update_position() {
@@ -50,27 +53,15 @@ export default class Player extends Sprite {
         this.x = (this.raw_x-camera_x)-this.width/2;
         this.y = (-this.raw_y-camera_y)-this.height/2;
 
-        //Jumping
-        if(!this.floored) {
-            this.y_velocity += this.y_acceleration + this.gravity;
-
-            
-        } else {
-
-            this.y_velocity = 0;
-
-            if(this.jumping) {
-                this.jumping = false;
-            }
-        }
-
         //Velocity
-        this.x_velocity += this.x_acceleration;
+        this.x_velocity_raw += this.x_acceleration;
 
         this.x_current_movement = Lerp(this.x_current_movement, this.x_movement, 0.1);
 
+        this.x_velocity = this.x_velocity_raw + this.x_current_movement * this.speed;
+
         this.raw_y += this.y_velocity * delta_time/1000;
-        this.raw_x += (this.x_velocity * delta_time/1000 + this.x_current_movement * this.speed * delta_time/1000);
+        this.raw_x += this.x_velocity * delta_time/1000;
 
         //Key movements
         if (Keyboard.isKeydown(Key.space) && this.floored) {
@@ -86,10 +77,31 @@ export default class Player extends Sprite {
             this.x_movement = 0;
         }
 
+        //Jumping
+        if(!this.floored) {
+            this.y_velocity += this.y_acceleration + this.gravity;
+        } else {
+            this.y_velocity = 0;
+
+            if(this.jumping) {
+                this.jumping = false;
+            }
+        }
+
         //Check if fell off map
         if (this.raw_y <= -500) {
             this.respawn();
         }
+
+        this.update_velocity();
+    }
+
+    update_velocity() {
+        this.last_position = [this.raw_x, this.raw_y];
+    }
+
+    get_velocity() {
+        return [this.raw_x - this.last_position[0], this.raw_y - this.last_position[1]]
     }
 
     is_aabb_collision(x, y, w, h) {
@@ -143,16 +155,16 @@ export default class Player extends Sprite {
 
                 let shortest_time = 0;
 
-                if (this.x_velocity != 0 && this.y_velocity == 0) {
+                if(this.x_velocity == 0 && this.y_velocity != 0) {
+                    shortest_time = ytime;
+                    this.raw_y += shortest_time * this.y_velocity * delta_time/1000;
+                }
+                else if (this.x_velocity != 0 && this.y_velocity == 0) {
                     shortest_time = xtime;
                     this.raw_x += shortest_time * this.x_velocity * delta_time/1000
-                }
-                else if(this.x_velocity == 0 && this.y_velocity != 0) {
-                    shortest_time = ytime;
-                    this.raw_y += shortest_time * this.y_velocity * delta_time/1000
                 } else {
                     shortest_time = Math.min(Math.abs(xtime), Math.abs(ytime))
-                    this.raw_x += shortest_time * this.x_velocity * delta_time/1000
+                    //this.raw_x += shortest_time * this.x_velocity * delta_time/1000
                     this.raw_y += shortest_time * this.y_velocity * delta_time/1000
                 }
 
