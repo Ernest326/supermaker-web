@@ -34,8 +34,15 @@ sprite_4_img.src = "sprites/4.png";
 let sprite_5_img = new Image();
 sprite_5_img.src = "sprites/5.png";
 
+<<<<<<< Updated upstream
 import EditorCloud from "./game/EditorCloud.js"
 import EditorTile from "./game/EditorTile.js"
+=======
+import Cloud from "./game/Cloud.js"
+import Player from "./game/Player.js"
+import Tile from "./game/Tile.js"
+//let player = new Player(0, 0, 0.8, 5, 100);
+>>>>>>> Stashed changes
 
 let tileset = {
     0: sprite_0_img,
@@ -66,6 +73,30 @@ level_loader.addEventListener('change', (event) => {
     }
 
 })
+
+/*
+const level_saver = document.getElementById("save");
+level_saver.addEventListener('change'), (event) => {
+    const settings = {
+        "spawn_x": document.getElementById("Setting0").value,
+        "spawn_y": document.getElementById("Setting1").value,
+        "background_color": document.getElementById("Setting2").value,
+        "clouds_enabled": document.getElementById("Setting3").value,
+        "gravity": document.getElementById("Setting4").value,
+        "jump_force": document.getElementById("Setting5").value,
+        "speed": document.getElementById("Setting6").value
+    }
+
+    const data = JSON.stringify(settings);
+
+    .writeFile('levels/level.level', data, (err) => {
+        if (err) {
+            throw err;
+        }
+        console.log("JSON data is saved.");
+    });
+}
+*/
 
 function init() {
 
