@@ -18,8 +18,8 @@ export let current_timer = 0;
 
 export let tiles = [];
 
-export function Lerp(start, end, time) {
-    return (end-start)*time + start;
+export function Lerp(start, end, t) {
+    return start + (end-start) * t;
 }
 
 let sprite_0_img = new Image();
@@ -114,9 +114,12 @@ function load_map(file_data) {
 
     player.raw_x = file_data.settings['spawn_x']*32;
     player.raw_y = file_data.settings['spawn_y']*32;
+    player.checkpoint_x = file_data.settings['spawn_x']*32;
+    player.checkpoint_y = file_data.settings['spawn_y']*32;
+    
     player.gravity = file_data.settings['gravity'];
     player.jump_force = file_data.settings['jump_force'];
-    player.speed = file_data.settings['jump_force'];
+    player.speed = file_data.settings['speed'];
 
     camera_x_raw = file_data.settings['spawn_x']*32;
     camera_y_raw = file_data.settings['spawn_y']*32;

@@ -4,9 +4,9 @@
 	"spawn_y": 5,
 	"background_color": "#70FF59",
 	"clouds_enabled": false,
-	"gravity": -0.015,
-	"jump_force": 1.0,
-	"speed": 0.5
+	"gravity": -2,
+	"jump_force": 120.0,
+	"speed": 120.0
   },
 
   "tiles": [

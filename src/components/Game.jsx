@@ -11,7 +11,7 @@ const rawHTML = `
     </label>
     <canvas id="myCanvas"
             class="canvas-center nearest"        
-            style="border: 2px solid #d3d3d3; width: 1280; height: 720; image-rendering: pixelated; margin-top: 15px"
+            style="border: 2px solid #d3d3d3; width: 1920; height: 1080; image-rendering: pixelated; margin-top: 15px"
 
     >
         Your browser does not support the HTML canvas tag.

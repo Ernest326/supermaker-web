@@ -1,4 +1,4 @@
-import {Lerp, camera_x, camera_y, tiles } from '../GameLogic.js'
+import {Lerp, camera_x, camera_y, tiles, delta_time, timer } from '../GameLogic.js'
 
 let player_sprite = new Image();
 player_sprite.src = "sprites/player.gif";
@@ -33,15 +33,46 @@ export default class Player extends Sprite {
     }
 
     respawn() {
-        this.x = this.checkpoint_x;
-        this.y = this.checkpoint_y;
+        this.y_velocity = 0;
+        this.x_velocity = 0;
+        this.raw_x = this.checkpoint_x;
+        this.raw_y = this.checkpoint_y;
     }
 
     update_movement() {
 
         this.update_position();
         this.update_physics();
+    }
 
+    update_position() {
+
+        this.x = (this.raw_x-camera_x)-this.width/2;
+        this.y = (-this.raw_y-camera_y)-this.height/2;
+
+        //Jumping
+        if(!this.floored) {
+            this.y_velocity += this.y_acceleration + this.gravity;
+
+            
+        } else {
+
+            this.y_velocity = 0;
+
+            if(this.jumping) {
+                this.jumping = false;
+            }
+        }
+
+        //Velocity
+        this.x_velocity += this.x_acceleration;
+
+        this.x_current_movement = Lerp(this.x_current_movement, this.x_movement, 0.1);
+
+        this.raw_y += this.y_velocity * delta_time/1000;
+        this.raw_x += (this.x_velocity * delta_time/1000 + this.x_current_movement * this.speed * delta_time/1000);
+
+        //Key movements
         if (Keyboard.isKeydown(Key.space) && this.floored) {
             this.y_velocity=this.jump_force;
             this.jumping = true;
@@ -54,22 +85,89 @@ export default class Player extends Sprite {
         } else {
             this.x_movement = 0;
         }
+
+        //Check if fell off map
+        if (this.raw_y <= -500) {
+            this.respawn();
+        }
     }
 
-    update_position() {
-        this.x = (this.raw_x-camera_x)-this.width/2;
-        this.y = (-this.raw_y-camera_y)-this.height/2;
+    is_aabb_collision(x, y, w, h) {
+
+        return  this.raw_x < x + w/2 &&
+                this.raw_x + this.width/2 > x &&
+                this.raw_y - this.height/2 < y + h/2 &&
+                this.raw_y + this.height/2 > y;
+
+    }
+
+    calculate_aabb_distance(x, y, w, h) {
+
+        let dx = 0
+        let dy = 0
+
+        if (this.raw_x < x) {
+            dx = x - (this.raw_x+this.width/2)
+        }
+        else if (this.raw_x > x)
+        {
+            dx = this.raw_x - (x+w/2)
+        }
+
+        if (this.raw_y < y)
+        {
+            dy = y - (this.raw_y+this.height/2)
+        }
+        else if (this.raw_y > y)
+        {
+            dy = this.raw_y - (y+h/2)
+        }
+        
+        return [dx, dy]
     }
 
     update_physics() {
 
+        this.floored = false;
+
         tiles.forEach(x => {
+            
+            if(this.is_aabb_collision(x.raw_x, x.raw_y, x.width, x.height)) {
+
+                //this.y_velocity = 0;
+                //this.floored = true;
+
+                let dist = this.calculate_aabb_distance(x.raw_x, x.raw_y, x.width, x.height)
+                let xtime = this.x_velocity != 0 ? Math.abs(dist[0] / this.x_velocity) : 0;
+                let ytime = this.y_velocity != 0 ? Math.abs(dist[1] / this.y_velocity) : 0;
+
+                let shortest_time = 0;
+
+                if (this.x_velocity != 0 && this.y_velocity == 0) {
+                    shortest_time = xtime;
+                    this.raw_x += shortest_time * this.x_velocity * delta_time/1000
+                }
+                else if(this.x_velocity == 0 && this.y_velocity != 0) {
+                    shortest_time = ytime;
+                    this.raw_y += shortest_time * this.y_velocity * delta_time/1000
+                } else {
+                    shortest_time = Math.min(Math.abs(xtime), Math.abs(ytime))
+                    this.raw_x += shortest_time * this.x_velocity * delta_time/1000
+                    this.raw_y += shortest_time * this.y_velocity * delta_time/1000
+                }
+
+                if(dist[1] > 0 && this.raw_y > x.raw_y) {
+                    this.floored = true;
+                }
+
+            }
+
+        });
+
+        /*tiles.forEach(x => {
 
             if(this.raw_y-this.height/2-0.1<x.raw_y+x.height/2) {
                 this.floored=true;
-                if(this.jumping) {
-                    this.jumping = false;
-                }
             } else {
                 this.floored=false;
             }
@@ -84,16 +182,7 @@ export default class Player extends Sprite {
                 
             }
         });
-
-        if(!this.floored) {
-            this.y_velocity += this.y_acceleration + this.gravity;
-        }
-        this.x_velocity += this.x_acceleration;
-
-        this.x_current_movement = Lerp(this.x_current_movement*this.speed, this.x_movement*this.speed, 0.1);
-
-        this.raw_y += this.y_velocity;
-        this.raw_x += this.x_velocity + this.x_current_movement;
+        */
 
     }
 
