@@ -5,12 +5,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Title from "./Title.jsx";
 import Tile from "./Tile.jsx";
 import { Play } from "react-bootstrap-icons";
-import GrassImg from "../res/sprites/5.png";
-import DirtImg from "../res/sprites/4.png";
-import SandImg from "../res/sprites/3.png";
-import StoneImg from "../res/sprites/2.png";
-import WoodImg from "../res/sprites/1.png";
-import NullImg from "../res/sprites/0.png";
 
 const rawHTML = `
   <div class="Game">
@@ -31,32 +25,32 @@ function Editor() {
   const [tiles, setTiles] = useState([
     {
       title: "Grass",
-      img: GrassImg,
+      img: "/sprites/5.png",
       selected: false,
     },
     {
       title: "Dirt",
-      img: DirtImg,
+      img: "/sprites/4.png",
       selected: false,
     },
     {
       title: "Sand",
-      img: SandImg,
+      img: "/sprites/3.png",
       selected: false,
     },
     {
       title: "Stone",
-      img: StoneImg,
+      img: "/sprites/2.png",
       selected: false,
     },
     {
       title: "Wood",
-      img: WoodImg,
+      img: "/sprites/1.png",
       selected: false,
     },
     {
       title: "Null",
-      img: NullImg,
+      img: "/sprites/0.png",
       selected: false,
     },
   ]);
