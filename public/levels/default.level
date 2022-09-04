@@ -4,7 +4,7 @@
 	"spawn_y": 5,
 	"background_color": "#70FF59",
 	"clouds_enabled": false,
-	"gravity": -2,
+	"gravity": -10,
 	"jump_force": 120.0,
 	"speed": 120.0
   },

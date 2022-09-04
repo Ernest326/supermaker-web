@@ -154,6 +154,7 @@ ul {
 }
 
 #Control {
+  float: none;
   border-style: dotted;
   border-color: #d35f5f;
   display: flex;
@@ -166,4 +167,21 @@ ul {
 
 #Control-right {
   flex: 30%;
+}
+
+#Setting-container {
+  display: flex;
+  margin-right: 12.5%;
+}
+
+.Setting-container-left {
+  flex: 60%;
+}
+
+.Setting-container-right {
+  flex: 40%;
+}
+
+.Setting-container-right input {
+  width: 6vw;
 }

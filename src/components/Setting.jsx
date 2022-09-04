@@ -2,9 +2,13 @@ import React from "react";
 
 function Setting(props) {
   return (
-    <div>  
+    <div id="Setting-container">
+      <div className="Setting-container-left">
         <p>{props.name}</p>
-        <input type={text}></input>
+      </div>
+      <div className="Setting-container-right">
+        <input id={props.id} placeholder={props.placeholder}></input>
+      </div>
     </div>
   );
 }

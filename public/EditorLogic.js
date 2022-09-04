@@ -39,7 +39,7 @@ import Cloud from "./game/Cloud.js"
 import Player from "./game/Player.js"
 import Tile from "./game/Tile.js"
 
-let player = new Player(0, 0, 0.8, 5, 100);
+//let player = new Player(0, 0, 0.8, 5, 100);
 
 let tileset = {
     0: sprite_0_img,
@@ -60,7 +60,9 @@ level_loader.addEventListener('change', (event) => {
     const reader = new FileReader();
 
     reader.addEventListener('load', (event) => {
-        load_map(JSON.parse(event.target.result));
+        let data = JSON.parse(event.target.result);
+        load_map(data);
+        loadEditorVars(data);
     });
 
     for (const file of files) {
@@ -112,6 +114,7 @@ function load_map(file_data) {
         screen.register(tile);
     });
 
+    /*
     player.raw_x = file_data.settings['spawn_x']*32;
     player.raw_y = file_data.settings['spawn_y']*32;
     player.checkpoint_x = file_data.settings['spawn_x']*32;
@@ -123,8 +126,21 @@ function load_map(file_data) {
 
     camera_x_raw = file_data.settings['spawn_x']*32;
     camera_y_raw = file_data.settings['spawn_y']*32;
+    */
 
-    screen.register(player);
+    //screen.register(player);
+
+    addGrid();
+}
+
+function loadEditorVars(file_data) {
+    document.getElementById("Setting0").value = file_data.settings['spawn_x'];
+    document.getElementById("Setting1").value = file_data.settings['spawn_y'];
+    document.getElementById("Setting2").value = file_data.settings['background_color'];
+    document.getElementById("Setting3").value = file_data.settings['clouds_enabled'];
+    document.getElementById("Setting4").value = file_data.settings['gravity'];
+    document.getElementById("Setting5").value = file_data.settings['jump_force'];
+    document.getElementById("Setting6").value = file_data.settings['speed'];
 
 }
 
@@ -137,7 +153,27 @@ function sprites_loaded() {
     .then(response => response.json())
     .then(jsonResponse => load_map(jsonResponse));
 
+    fetch('levels/default.level')
+    .then(response => response.json())
+    .then(jsonResponse => loadEditorVars(jsonResponse));
+
     gameLoop();
+}
+
+const blockSize = 20;
+
+function addGrid() {
+    let posX = blockSize;
+    let posY = blockSize;
+    for (let i = 0; i < Canvas.getWidth() / blockSize; i++) {
+        screen.register(new Line(posX + 0.5, 0, posX + 0.5, Canvas.getHeight()))
+        posX += blockSize;
+    }
+
+    for (let j = 0; j < Canvas.getHeight() / blockSize; j++) {
+        screen.register(new Line(0, posY + 0.5, Canvas.getWidth(), posY + 0.5));
+        posY += blockSize;
+    }
 }
 
 let gameLoop = () => {
@@ -153,10 +189,12 @@ let gameLoop = () => {
 
     //x+=0.1
 
+    /*
     camera_x_raw = Lerp(camera_x_raw, player.raw_x, 0.1);
     camera_y_raw = Lerp(camera_y_raw, player.raw_y, 0.1);
     camera_x = camera_x_raw - 145;
     camera_y = -camera_y_raw - 70;
+    */
 
     clouds.forEach(x => {
         x.update_movement();
@@ -167,7 +205,7 @@ let gameLoop = () => {
         x.update_position();
     });
 
-    player.update_movement();
+    //player.update_movement();
 
     last_timer = current_timer;
 
