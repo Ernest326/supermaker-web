@@ -25,6 +25,7 @@ export default class Player extends Sprite {
         this.floored = false;
         this.jumping = false;
         this.last_position = [0,0];
+        this.current_velocity = [0,0];
     }
 
     damage(x) {
@@ -39,12 +40,14 @@ export default class Player extends Sprite {
         this.x_velocity = 0;
         this.raw_x = this.checkpoint_x;
         this.raw_y = this.checkpoint_y;
+        this.last_position = [this.checkpoint_x, this.checkpoint_y];
     }
 
     update_movement() {
 
         this.update_physics();
         this.update_position();
+        this.update_velocity();
         console.log(this.get_velocity());
     }
 
@@ -92,16 +95,15 @@ export default class Player extends Sprite {
         if (this.raw_y <= -500) {
             this.respawn();
         }
-
-        this.update_velocity();
     }
 
     update_velocity() {
+        this.current_velocity = [(this.raw_x - this.last_position[0])/(delta_time/1000), (this.raw_y - this.last_position[1])/(delta_time/1000)]
         this.last_position = [this.raw_x, this.raw_y];
     }
 
     get_velocity() {
-        return [this.raw_x - this.last_position[0], this.raw_y - this.last_position[1]]
+        return this.current_velocity;
     }
 
     is_aabb_collision(x, y, w, h) {
@@ -150,22 +152,22 @@ export default class Player extends Sprite {
                 //this.floored = true;
 
                 let dist = this.calculate_aabb_distance(x.raw_x, x.raw_y, x.width, x.height)
-                let xtime = this.x_velocity != 0 ? Math.abs(dist[0] / this.x_velocity) : 0;
-                let ytime = this.y_velocity != 0 ? Math.abs(dist[1] / this.y_velocity) : 0;
+                let xtime = this.x_velocity != 0 ? Math.abs(dist[0] / this.get_velocity()[0]) : 0;
+                let ytime = this.y_velocity != 0 ? Math.abs(dist[1] / this.get_velocity()[1]) : 0;
 
                 let shortest_time = 0;
 
-                if(this.x_velocity == 0 && this.y_velocity != 0) {
+                if(this.get_velocity()[0] == 0 && this.get_velocity()[1] != 0) {
                     shortest_time = ytime;
-                    this.raw_y += shortest_time * this.y_velocity * delta_time/1000;
+                    this.raw_y += shortest_time * this.get_velocity()[1] * delta_time/1000;
                 }
-                else if (this.x_velocity != 0 && this.y_velocity == 0) {
+                else if (this.get_velocity()[0] != 0 && this.get_velocity()[1] == 0) {
                     shortest_time = xtime;
-                    this.raw_x += shortest_time * this.x_velocity * delta_time/1000
+                    this.raw_x += shortest_time * this.get_velocity()[0] * delta_time/1000
                 } else {
                     shortest_time = Math.min(Math.abs(xtime), Math.abs(ytime))
-                    //this.raw_x += shortest_time * this.x_velocity * delta_time/1000
-                    this.raw_y += shortest_time * this.y_velocity * delta_time/1000
+                    this.raw_x += shortest_time * this.get_velocity()[0] * delta_time/1000
+                    this.raw_y += shortest_time * this.get_velocity()[1] * delta_time/1000
                 }
 
                 if(dist[1] > 0 && this.raw_y > x.raw_y) {
