@@ -5,6 +5,7 @@ import Game from "./components/Game";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Editor from "./components/Editor";
+import Menu from "./components/Menu"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Editor" element={<Editor />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/Menu" element={<Menu />} />
         </Routes>
       </Router>
     </div>

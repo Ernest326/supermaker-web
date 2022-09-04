@@ -11,7 +11,7 @@ function Home() {
   }
 
   function navGuest() {
-    navigate("/Game");
+    navigate("/Menu");
   }
 
   function navRegister() {

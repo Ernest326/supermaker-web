@@ -104,6 +104,10 @@ ul {
   flex: 15%;
 }
 
+#Build-tools-file-container {
+  margin-left: 12.5%;
+}
+
 #Build-tools-menu-right {
   flex: 15%
 }
@@ -147,4 +151,19 @@ ul {
   bottom: 0;
   z-index: -1;
   filter: blur(8px);
+}
+
+#Control {
+  border-style: dotted;
+  border-color: #d35f5f;
+  display: flex;
+  width: 10vw;
+}
+
+#Control-left {
+  flex: 70%;
+}
+
+#Control-right {
+  flex: 30%;
 }

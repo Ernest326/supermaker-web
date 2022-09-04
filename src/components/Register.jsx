@@ -7,7 +7,7 @@ function Register() {
   let navigate = useNavigate();
 
   function navLogin() {
-    navigate("/Game");
+    navigate("/Menu");
   }
 
   function navBack() {
