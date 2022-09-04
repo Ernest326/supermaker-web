@@ -34,15 +34,8 @@ sprite_4_img.src = "sprites/4.png";
 let sprite_5_img = new Image();
 sprite_5_img.src = "sprites/5.png";
 
-<<<<<<< Updated upstream
 import EditorCloud from "./game/EditorCloud.js"
 import EditorTile from "./game/EditorTile.js"
-=======
-import Cloud from "./game/Cloud.js"
-import Player from "./game/Player.js"
-import Tile from "./game/Tile.js"
-//let player = new Player(0, 0, 0.8, 5, 100);
->>>>>>> Stashed changes
 
 let tileset = {
     0: sprite_0_img,
