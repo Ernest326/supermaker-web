@@ -214,7 +214,7 @@ let gameLoop = () => {
         mouse_held = false;
     }
 
-    console.log(Math.floor((mouseX-145) / 40))
+    console.log(Math.floor((mouseX-145) / 20))
 
     clouds.forEach(x => {
         x.update_movement();
