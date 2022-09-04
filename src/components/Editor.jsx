@@ -135,16 +135,6 @@ function Editor() {
           <div id="Settings">
             <h1 id="Settings-title">Settings</h1>
             <br></br>
-            <ul>
-              <li>
-                <div>
-                  <InputGroup className="mb-1">
-                    <label>Clouds</label>
-                    <InputGroup.Checkbox />
-                  </InputGroup>
-                </div>
-              </li>
-            </ul>
           </div>
         </div>
       </div>

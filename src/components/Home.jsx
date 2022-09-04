@@ -19,14 +19,7 @@ function Home() {
   }
 
   return (
-
     <div className="Login-box">
-
-      <video autoplay="autoplay" loop className="background-video">
-        <source src="background.mp4" type="video/mp4"></source>
-      </video>
-      
-
       <div className="Login-box-title">
         <div id="Logo-frame">
           <img id="Logo-img" src={GameMaker}></img>
