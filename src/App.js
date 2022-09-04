@@ -9,8 +9,8 @@ import Editor from "./components/Editor";
 function App() {
   return (
     <div className="App">
-            <video autoplay="autoplay" loop className="background-video">
-        <source src="background.mp4" type="video/mp4"></source>
+      <video id="App-background" autoPlay loop muted>
+        <source src="/background.mp4" type="video/mp4" />
       </video>
       <Router>
         <Routes>

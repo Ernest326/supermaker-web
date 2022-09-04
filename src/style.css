@@ -17,6 +17,7 @@ ul {
 .App {
   text-align: center;
   background-color: transparent;
+  /*background-color: #efefef; */
 }
 
 .Login-box {
@@ -134,7 +135,7 @@ ul {
   margin-top: 3%;
 }
 
-.background-video {
+#App-background {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
