@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
+import InputGroup from "react-bootstrap/InputGroup";
 import Title from "./Title.jsx";
 import Tile from "./Tile.jsx";
 import { Play } from "react-bootstrap-icons";
@@ -60,7 +61,7 @@ function Editor() {
     },
   ]);
 
-  let selectedIndex;
+  let selectedIndex = -1;
 
   function handleClick(index) {
     let newArr = [...tiles];
@@ -87,7 +88,7 @@ function Editor() {
       <Title />
       <div id="Build-tools-container">
         <div id="Build-tools-menu-left">
-          <h1>Tiles</h1>
+          <h1>Objects</h1>
           <br></br>
           {tiles.map((Tiles, index) => {
             return (
@@ -113,22 +114,38 @@ function Editor() {
           <div ref={divRef} />
         </div>
         <div id="Build-tools-menu-right">
-          <h1>Selected</h1>
-          <br></br>
           {tiles.map((Tiles, index) => {
             if (Tiles.selected === true) {
               return (
-                <button>
-                  <Tile
-                    key={index}
-                    title={Tiles.title}
-                    img={Tiles.img}
-                    selected={Tiles.selected}
-                  />
-                </button>
+                <div>
+                  <h1>Selected</h1>
+                  <br></br>
+                  <button>
+                    <Tile
+                      key={index}
+                      title={Tiles.title}
+                      img={Tiles.img}
+                      selected={Tiles.selected}
+                    />
+                  </button>
+                </div>
               );
             }
           })}
+          <div id="Settings">
+            <h1 id="Settings-title">Settings</h1>
+            <br></br>
+            <ul>
+              <li>
+                <div>
+                  <InputGroup className="mb-1">
+                    <label>Clouds</label>
+                    <InputGroup.Checkbox />
+                  </InputGroup>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

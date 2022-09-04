@@ -115,7 +115,7 @@ ul {
   border-color: #d35f5f;
   border-radius: 12.5%;
   width: 8.5vw;
-  margin-bottom: 2.5%;
+  margin-bottom: 3%;
 }
 
 #Tile-title {
@@ -124,4 +124,12 @@ ul {
 
 #Tile-img {
   padding-bottom: 1vh;
+}
+
+#Settings {
+
+}
+
+#Settings-title {
+  margin-top: 3%;
 }
