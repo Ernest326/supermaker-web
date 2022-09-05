@@ -1,4 +1,4 @@
-import "../style.css";
+import "../stylesheets/Home.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import GameMaker from "../res/SuperMaker.png";
