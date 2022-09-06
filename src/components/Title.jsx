@@ -1,3 +1,4 @@
+import "../stylesheets/Title.css";
 import React from "react";
 import TitleImg from "../res/Title.png";
 

@@ -4,7 +4,9 @@ import os
 def main():
     name = input("Enter new component name: ")
     try:
-        open(os.getcwd().removesuffix("\scripts") + f"\src\components\{name}.jsx", 'x')
+        file = open(os.getcwd().removesuffix("\scripts") + f"\src\components\{name}.jsx", 'w')
+        file.write(f"import '../stylesheets/{name}.css';")
+        file.close()
         open(os.getcwd().removesuffix("\scripts") + f"\src\stylesheets\{name}.css", 'x')
     except Exception:
         print("Failed to create new files")
