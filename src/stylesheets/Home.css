@@ -1,4 +1,4 @@
-.Login-box {
+.Home-box {
   background-color: #ffffff;
   justify-content: center;
   margin-left: 30%;
@@ -7,40 +7,31 @@
   border-radius: 25%;
 }
 
-.Login-box-title {
+.Home-box-title {
   text-align: center;
   padding-bottom: 4vh;
   padding-top: 4vh;
 }
 
-.Login-box-middle {
+.Home-box-middle {
   display: flex;
   justify-content: center;
   padding-bottom: 5vh;
 }
 
-.Login-box-middle-left {
+.Home-box-middle-left {
   flex: 50%;
 }
 
-.Login-box-middle-right {
+.Home-box-middle-right {
   flex: 50%;
 }
 
-.Login-box-lower {
-}
-
-.Login-btn {
+.Home-login-btn {
   width: 5vw;
 }
 
-#Login-form {
-  margin: 10%;
-  padding-top: 5%;
-  padding-bottom: 5%;
-}
-
-#Guest {
+.Home-guest-btn {
   border: none;
   background-color: inherit;
   display: inline-block;
@@ -48,12 +39,12 @@
   text-decoration: underline;
 }
 
-#Logo-img {
+.Home-logo-img {
   width: 15vw;
   scale: 0.8;
 }
 
-#Logo-frame {
+.Home-logo-frame {
   border-style: dotted;
   border-color: #d35f5f;
   border-radius: 50%;

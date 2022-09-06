@@ -19,25 +19,33 @@ function Home() {
   }
 
   return (
-    <div className="Login-box">
-      <div className="Login-box-title">
-        <div id="Logo-frame">
-          <img id="Logo-img" src={GameMaker}></img>
+    <div className="Home-box">
+      <div className="Home-box-title">
+        <div className="Home-logo-frame">
+          <img className="Home-logo-img" src={GameMaker}></img>
         </div>
       </div>
-      <div className="Login-box-middle">
-        <div className="Login-box-middle-left">
-          <Button variant="primary" className="Login-btn" onClick={navLogin}>
+      <div className="Home-box-middle">
+        <div className="Home-box-middle-left">
+          <Button
+            variant="primary"
+            className="Home-login-btn"
+            onClick={navLogin}
+          >
             Login
           </Button>
         </div>
-        <div className="Login-box-middle-right">
-          <Button variant="primary" className="Login-btn" onClick={navRegister}>
+        <div className="Home-box-middle-right">
+          <Button
+            variant="primary"
+            className="Home-login-btn"
+            onClick={navRegister}
+          >
             Register
           </Button>
         </div>
       </div>
-      <div className="Login-box-lower">
+      <div className="Home-box-lower">
         <Button variant="link" onClick={navGuest}>
           Play as Guest?
         </Button>
