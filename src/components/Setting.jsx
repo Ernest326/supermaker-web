@@ -1,3 +1,4 @@
+import "../stylesheets/Setting.css";
 import React from "react";
 
 function Setting(props) {

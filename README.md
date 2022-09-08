@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# SuperMaker
+Super Maker is a web app which allows users to create their own levels using our own built-in editor and load/share them. Super Maker uses its own library for rendering objects onto a context.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## New Showcase
+To watch new showcase video click [here](https://youtu.be/c8P7i__KhQY)
 
-## Available Scripts
+## Showcase
+<link href="https://www.youtube.com/watch?v=3CGf4c8wvUs">
+    <img src="https://img.youtube.com/vi/3CGf4c8wvUs/0.jpg" alt="Thumbnail">
+</link>
 
-In the project directory, you can run:
+## Inspiration
+Super mario maker inspired this project and also I like the idea of users being able to create their own levels and share it with their friends/test it out
 
-### `npm start`
+## What it does
+SuperMaker allows users to create their own levels with our tileset and also users are able to change other settings like gravity, speed, jump height, background and much more.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Levels can be shared in a file and loaded.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How we built it
+We made our own library for rendering onto a context and made separate classes for different components. We also have two separate classes for the editor and game which are quite similar. We use react to run the web and hop to deploy it on the cloud.
 
-### `npm test`
+## Challenges we ran into
+In the beginning we had trouble with setting up hop which took many wasted hours. Eventually we got it working and then started working on our project. Other challenges I experienced was coding the physics engine, which isn't perfect but somewhat works and managing the objects in the scene. There where also physical challenges I personally had such as my pc bluescreening/shutting off randomly today which wasted a bit of time and also real life problems. Other than that we are happy with how our project came out but I believe we could have added more features if we had hop deployed earlier.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Accomplishments that we're proud of
+We are proud of the editor and the web game engine that we have developed. I think that this is a great achievement to complete in around 24 hours.
 
-### `npm run build`
+## What we learned
+We became better at using react and javascript and also learn to adapt and overcome many challenges
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## What's next for SuperMaker
+Better physics engine, better editor UI, sounds/music options, more editor components, bug fixes and also maybe a web server which allows users to share their levels on the cloud and comment/rate other users levels.

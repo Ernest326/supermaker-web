@@ -1,0 +1,53 @@
+.Home-box {
+  background-color: #ffffff;
+  justify-content: center;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 5%;
+  border-radius: 25%;
+}
+
+.Home-box-title {
+  text-align: center;
+  padding-bottom: 4vh;
+  padding-top: 4vh;
+}
+
+.Home-box-middle {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 5vh;
+}
+
+.Home-box-middle-left {
+  flex: 50%;
+}
+
+.Home-box-middle-right {
+  flex: 50%;
+}
+
+.Home-login-btn {
+  width: 5vw;
+}
+
+.Home-guest-btn {
+  border: none;
+  background-color: inherit;
+  display: inline-block;
+  color: #467fd0;
+  text-decoration: underline;
+}
+
+.Home-logo-img {
+  width: 15vw;
+  scale: 0.8;
+}
+
+.Home-logo-frame {
+  border-style: dotted;
+  border-color: #d35f5f;
+  border-radius: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+}

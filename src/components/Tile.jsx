@@ -1,3 +1,4 @@
+import "../stylesheets/Tile.css";
 import React from "react";
 
 function Tile(props) {
