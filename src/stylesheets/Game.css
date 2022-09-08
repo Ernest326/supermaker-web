@@ -1,0 +1,25 @@
+.Game {
+  background-color: #ffffff;
+  display: block;
+  padding-bottom: 40%;
+}
+
+.Game-container {
+  display: flex;
+}
+
+.Game-menu-left {
+  flex: 15%;
+}
+
+.Game-file-container {
+  margin-left: 12.5%;
+}
+
+.Game-menu-right {
+  flex: 15%;
+}
+
+.Game-screen {
+  flex: 70%;
+}

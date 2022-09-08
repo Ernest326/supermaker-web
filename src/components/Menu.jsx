@@ -19,39 +19,37 @@ function Menu() {
   }
 
   return (
-    <div className="App">
-      <div className="Login-box">
-        <Form id="Login-form">
-          <h1>Menu</h1>
-          <br />
-          <div>
-            <Button
-              id="Play-btn"
-              variant="primary"
-              type="submit"
-              className="Login-btn"
-              onClick={navGame}
-            >
-              Play
-            </Button>
-          </div>
-          <br />
-          <div>
-            <Button
-              variant="primary"
-              type="submit"
-              className="Login-btn"
-              onClick={navEditor}
-            >
-              Studio
-            </Button>
-          </div>
-          <br />
-          <Button variant="link" onClick={navBack}>
-            Back?
+    <div className="Menu-box">
+      <Form id="Menu-form">
+        <h1>Menu</h1>
+        <br />
+        <div>
+          <Button
+            id="Play-btn"
+            variant="primary"
+            type="submit"
+            className="Menu-btn"
+            onClick={navGame}
+          >
+            Play
           </Button>
-        </Form>
-      </div>
+        </div>
+        <br />
+        <div>
+          <Button
+            variant="primary"
+            type="submit"
+            className="Menu-btn"
+            onClick={navEditor}
+          >
+            Studio
+          </Button>
+        </div>
+        <br />
+        <Button variant="link" onClick={navBack}>
+          Back?
+        </Button>
+      </Form>
     </div>
   );
 }

@@ -10,7 +10,7 @@ import Menu from "./components/Menu"
 function App() {
   return (
     <div className="App">
-      <video id="App-background" autoPlay loop muted>
+      <video className="App-background" autoPlay loop muted>
         <source src="/background.mp4" type="video/mp4" />
       </video>
       <Router>

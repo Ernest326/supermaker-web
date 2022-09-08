@@ -4,8 +4,8 @@ import TitleImg from "../res/Title.png";
 
 function Title() {
   return (
-    <div id="SuperMaker-main">
-      <div id="SuperMaker-title">
+    <div className="SuperMaker-main">
+      <div className="SuperMaker-title">
         <img src={TitleImg}></img>
       </div>
     </div>

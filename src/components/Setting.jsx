@@ -3,7 +3,7 @@ import React from "react";
 
 function Setting(props) {
   return (
-    <div id="Setting-container">
+    <div className="Setting-container">
       <div className="Setting-container-left">
         <p>{props.name}</p>
       </div>

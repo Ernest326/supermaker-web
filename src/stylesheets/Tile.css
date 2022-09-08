@@ -1,0 +1,15 @@
+.Tile {
+  border: solid;
+  border-color: #d35f5f;
+  border-radius: 12.5%;
+  width: 8.5vw;
+  margin-bottom: 3%;
+}
+
+.Tile-title {
+  font-size: 1.35rem;
+}
+
+.Tile-img {
+  padding-bottom: 1vh;
+}

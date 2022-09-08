@@ -20,61 +20,7 @@ ul {
   /*background-color: #efefef; */
 }
 
-#Build-tools {
-  background-color: #ffffff;
-  display: block;
-  padding-bottom: 40%;
-}
-
-#SuperMaker-title {
-  padding-top: 2.5vh;
-}
-
-#SuperMaker-main {
-  background-color: #ffffff;
-}
-
-#Build-tools-container {
-  display: flex;
-}
-
-#Build-tools-menu-left {
-  flex: 15%;
-}
-
-#Build-tools-file-container {
-  margin-left: 12.5%;
-}
-
-#Build-tools-menu-right {
-  flex: 15%;
-}
-
-#Build-tools-screen {
-  flex: 70%;
-}
-
-#Tile {
-  border: solid;
-  border-color: #d35f5f;
-  border-radius: 12.5%;
-  width: 8.5vw;
-  margin-bottom: 3%;
-}
-
-#Tile-title {
-  font-size: 1.35rem;
-}
-
-#Tile-img {
-  padding-bottom: 1vh;
-}
-
-#Settings-title {
-  margin-top: 3%;
-}
-
-#App-background {
+.App-background {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -87,35 +33,6 @@ ul {
   filter: blur(8px);
 }
 
-#Control {
-  float: none;
-  border-style: dotted;
-  border-color: #d35f5f;
-  display: flex;
-  width: 10vw;
-}
 
-#Control-left {
-  flex: 70%;
-}
 
-#Control-right {
-  flex: 30%;
-}
 
-#Setting-container {
-  display: flex;
-  margin-right: 12.5%;
-}
-
-.Setting-container-left {
-  flex: 60%;
-}
-
-.Setting-container-right {
-  flex: 40%;
-}
-
-.Setting-container-right input {
-  width: 6vw;
-}

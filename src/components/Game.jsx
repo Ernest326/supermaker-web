@@ -33,8 +33,8 @@ function Game() {
   const navigate = useNavigate();
 
   function reloadPage() {
-    navigate("/")
-    window.location.reload()
+    navigate("/");
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -43,32 +43,32 @@ function Game() {
   }, []);
 
   return (
-    <div id="Build-tools">
+    <div className="Game">
       <Title />
-      <div id="Build-tools-container">
-        <div id="Build-tools-menu-left">
+      <div className="Game-container">
+        <div className="Game-menu-left">
           <h1>Level</h1>
           <br></br>
           <div
-            id="Build-tools-file-container"
+            className="Game-file-container"
             dangerouslySetInnerHTML={{ __html: inputHTML }}
           ></div>
           <div>
             <button onClick={reloadPage}>Reload Page</button>
           </div>
         </div>
-        <div id="Build-tools-screen">
+        <div className="Game-screen">
           <div ref={divRef} />
         </div>
-        <div id="Build-tools-menu-right">
-          <div id="Settings">
-            <h1 id="Settings-title">Controls</h1>
+        <div className="Game-menu-right">
+          <div className="Settings">
+            <h1 className="Settings-title">Controls</h1>
             <br></br>
-            <div id="Control">
-              <div id="Control-left">
+            <div className="Control">
+              <div className="Control-left">
                 <label>Move-forward:</label>
               </div>
-              <div id="Control-right">
+              <div className="Control-right">
                 <label>W</label>
               </div>
             </div>

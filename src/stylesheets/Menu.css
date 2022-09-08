@@ -1,0 +1,18 @@
+.Menu-box {
+  background-color: #ffffff;
+  justify-content: center;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 5%;
+  border-radius: 25%;
+}
+
+.Menu-form {
+  margin: 10%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.Menu-btn {
+  width: 5vw;
+}

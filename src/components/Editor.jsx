@@ -129,15 +129,15 @@ function Editor() {
   }, []);
 
   return (
-    <div id="Build-tools">
+    <div className="Editor">
       <Title />
-      <div id="Build-tools-container">
-        <div id="Build-tools-menu-left">
+      <div className="Editor-container">
+        <div className="Editor-menu-left">
           <h1>Level</h1>
-          <div id="Build-tools-file-container">
+          <div className="Editor-file-container">
             <div dangerouslySetInnerHTML={{ __html: inputHTML }}></div>
             <div
-              id="Build-tools-save"
+              className="Editor-save"
               dangerouslySetInnerHTML={{ __html: saveHTML }}
             ></div>
             <div>
@@ -166,10 +166,10 @@ function Editor() {
             );
           })}
         </div>
-        <div id="Build-tools-screen">
+        <div className="Editor-screen">
           <div ref={divRef} />
         </div>
-        <div id="Build-tools-menu-right">
+        <div className="Editor-menu-right">
           {tiles.map((Tiles, index) => {
             if (Tiles.selected === true) {
               return (
@@ -188,8 +188,8 @@ function Editor() {
               );
             }
           })}
-          <div id="Settings">
-            <h1 id="Settings-title">Settings</h1>
+          <div className="Settings">
+            <h1 className="Settings-title">Settings</h1>
             <br></br>
             {settings.map((Settings, index) => {
               return (
@@ -202,7 +202,7 @@ function Editor() {
               );
             })}
           </div>
-          <div id="Tiles">
+          <div className="Tiles">
             <h1>Tiles</h1>
             <br></br>
           </div>

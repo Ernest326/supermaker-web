@@ -1,0 +1,25 @@
+.Editor {
+  background-color: #ffffff;
+  display: block;
+  padding-bottom: 40%;
+}
+
+.Editor-container {
+  display: flex;
+}
+
+.Editor-menu-left {
+  flex: 15%;
+}
+
+.Editor-file-container {
+  margin-left: 12.5%;
+}
+
+.Editor-menu-right {
+  flex: 15%;
+}
+
+.Editor-screen {
+  flex: 70%;
+}
