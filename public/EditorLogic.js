@@ -5,6 +5,12 @@ export let camera_raw_y = 0;
 export let camera_x = 0;
 export let camera_y = 0;
 
+export let real_mouse_x = 0;
+export let real_mouse_y = 0;
+
+export let grid_x = 0;
+export let grid_y = 0;
+
 export let cloud_0_img = new Image();
 cloud_0_img.src = "sprites/cloud_0.png";
 
@@ -34,15 +40,8 @@ sprite_4_img.src = "sprites/4.png";
 let sprite_5_img = new Image();
 sprite_5_img.src = "sprites/5.png";
 
-<<<<<<< Updated upstream
 import EditorCloud from "./game/EditorCloud.js"
 import EditorTile from "./game/EditorTile.js"
-=======
-import Cloud from "./game/Cloud.js"
-import Player from "./game/Player.js"
-import Tile from "./game/Tile.js"
-//let player = new Player(0, 0, 0.8, 5, 100);
->>>>>>> Stashed changes
 
 let tileset = {
     0: sprite_0_img,
@@ -54,6 +53,8 @@ let tileset = {
 }
 
 let clouds = [];
+
+let pos_text = new TextItem(5, 10, "X:0, Y:0", 8);
 
 const level_loader = document.getElementById('file');
 level_loader.addEventListener('change', (event) => {
@@ -73,30 +74,6 @@ level_loader.addEventListener('change', (event) => {
     }
 
 })
-
-/*
-const level_saver = document.getElementById("save");
-level_saver.addEventListener('change'), (event) => {
-    const settings = {
-        "spawn_x": document.getElementById("Setting0").value,
-        "spawn_y": document.getElementById("Setting1").value,
-        "background_color": document.getElementById("Setting2").value,
-        "clouds_enabled": document.getElementById("Setting3").value,
-        "gravity": document.getElementById("Setting4").value,
-        "jump_force": document.getElementById("Setting5").value,
-        "speed": document.getElementById("Setting6").value
-    }
-
-    const data = JSON.stringify(settings);
-
-    .writeFile('levels/level.level', data, (err) => {
-        if (err) {
-            throw err;
-        }
-        console.log("JSON data is saved.");
-    });
-}
-*/
 
 function init() {
 
@@ -136,12 +113,16 @@ function load_map(file_data) {
     }
 
     file_data.tiles.forEach(x => {
-        let tile = new EditorTile(x['x']*20, x['y']*20, tileset[x['id']]);
+        let tile = new EditorTile(x['x']*20, x['y']*20, tileset[x['id']], x['id']);
         tiles.push(tile);
         screen.register(tile);
     });
 
+
     addGrid();
+
+    screen.register(pos_text);
+
 }
 
 function loadEditorVars(file_data) {
@@ -160,13 +141,9 @@ function sprites_loaded() {
     Mouse.init();
     Keyboard.init();
 
-    fetch('levels/default.level')
+    fetch('levels/footage_level.level')
     .then(response => response.json())
     .then(jsonResponse => load_map(jsonResponse));
-
-    fetch('levels/default.level')
-    .then(response => response.json())
-    .then(jsonResponse => loadEditorVars(jsonResponse));
 
     gameLoop();
 }
@@ -194,14 +171,6 @@ function addGrid() {
     }
 }
 
-function findTile(x, y) {
-    tiles.forEach(e => {
-        if(Math.floor(e.raw_x/32)) {
-            //
-        }
-    });
-}
-
 let mouse_held = false;
 
 let gameLoop = () => {
@@ -214,19 +183,32 @@ let gameLoop = () => {
     camera_x = camera_raw_x - 145;
     camera_y = -camera_raw_y - 70;
 
+    //Get mouse position
+    let canvas_bounds = document.getElementById('myCanvas').getBoundingClientRect();
+
+    real_mouse_x = Math.floor(((mouseX - canvas_bounds.x)/(canvas_bounds.right-canvas_bounds.left))*300 + camera_x + 10);
+    real_mouse_y = Math.floor(((canvas_bounds.bottom - mouseY)/(canvas_bounds.bottom-canvas_bounds.top))*150 - camera_y - 140);
+
+    let grid_x = Math.floor(real_mouse_x/20);
+    let grid_y = Math.floor(real_mouse_y / 20);
+
+    pos_text.string = "X:" + grid_x + ", Y:" + grid_y;
+
+    //Camera movement
     if(Keyboard.isKeydown(Key.a)) {
-        camera_raw_x -= 20*delta_time/1000;
+        camera_raw_x -= 40*delta_time/1000;
     }
     if(Keyboard.isKeydown(Key.d)) {
-        camera_raw_x += 20*delta_time/1000;
+        camera_raw_x += 40*delta_time/1000;
     }
     if(Keyboard.isKeydown(Key.s)) {
-        camera_raw_y -= 20*delta_time/1000;
+        camera_raw_y -= 40*delta_time/1000;
     }
     if(Keyboard.isKeydown(Key.w)) {
-        camera_raw_y += 20*delta_time/1000;
+        camera_raw_y += 40*delta_time/1000;
     }
 
+    //Update grid movement
     grid_v.forEach(element => {
         element.x1 = element.x_raw_1 - camera_raw_x - 5;
         element.x2 = element.x_raw_2 - camera_raw_x- 5;
@@ -237,15 +219,32 @@ let gameLoop = () => {
         element.y2 = element.y_raw_2 + camera_raw_y;
     });
 
-    if(Mouse.isButtonDown(MouseButton.left)) {
+    //Placing blocks
+    if(Mouse.isButtonDown(MouseButton.left) && real_mouse_x <= 300 && real_mouse_x >= 0 && real_mouse_y <= 150 && real_mouse_y >= 0) {
         if (!mouse_held) {
             mouse_held = true;
+
+            let tile;
+
+            tiles.forEach(e => {
+                if(Math.floor(e.raw_x/20) == grid_x && Math.floor(e.raw_y/20) == grid_y) {
+                    tile = e;
+                }
+            });
+
+            if (tile != null) {
+                tiles.splice(tiles.indexOf(tile), 1);
+                screen.registry.splice(screen.registry.indexOf(tile), 1);
+            } else {
+                let new_tile = new EditorTile(grid_x*20, grid_y*20, sprite_0_img, 0);
+                tiles.push(new_tile);
+                screen.register(new_tile);
+            }
+
         }
     } else {
         mouse_held = false;
     }
-
-    console.log(Math.floor((mouseX-145) / 20))
 
     clouds.forEach(x => {
         x.update_movement();
@@ -261,5 +260,4 @@ let gameLoop = () => {
     requestAnimationFrame(gameLoop);
 }
 
-//wait_for_sprites();
 init();

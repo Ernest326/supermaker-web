@@ -2,10 +2,11 @@ import { screen, camera_x, camera_y } from "../EditorLogic.js"
 
 export default class EditorTile extends Sprite {
 
-    constructor(x, y, tile_sprite) {
+    constructor(x, y, tile_sprite, sprite_id, id) {
         super(tile_sprite, x, y, 20, 20);
         this.raw_x = x;
         this.raw_y = y;
+        this.sprite_id = sprite_id;
     }
 
     update_position() {

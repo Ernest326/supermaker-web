@@ -80,16 +80,6 @@ export default class Player extends Sprite {
             this.x_movement = 0;
         }
 
-        //Jumping
-        if(!this.floored) {
-            this.y_velocity += this.y_acceleration + this.gravity;
-        } else {
-            this.y_velocity = 0;
-
-            if(this.jumping) {
-                this.jumping = false;
-            }
-        }
 
         //Check if fell off map
         if (this.raw_y <= -500) {
@@ -178,12 +168,14 @@ export default class Player extends Sprite {
 
         });
 
+        if(!this.floored) {
+            this.y_velocity += this.y_acceleration + this.gravity;
+        }
+
         /*tiles.forEach(x => {
 
             if(this.raw_y-this.height/2-0.1<x.raw_y+x.height/2) {
-                this.floored=true;
-            } else {
-                this.floored=false;
+                this.floored = true;
             }
 
             if(this.raw_y-this.height/2<x.raw_y+x.height/2) {
@@ -195,9 +187,11 @@ export default class Player extends Sprite {
                 }
                 
             }
-        });
-        */
+        });*/
+        
 
     }
+
+    
 
 }
